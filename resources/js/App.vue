@@ -1,22 +1,7 @@
 <template>
-    <h1 class="font-medium text-2xl">This is first components</h1>
+    <router-view></router-view>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            locale: "en",
-        };
-    },
-    watch: {
-        // watch locale variable change
-        locale(val) {
-            this.$i18n.locale = val;
-        },
-    },
-};
+export default {};
 </script>
-
-<style>
-</style>

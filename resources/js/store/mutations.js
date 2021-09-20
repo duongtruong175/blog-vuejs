@@ -1,3 +1,5 @@
-export default {
+const mutations = {
 
 };
+
+export default mutations;

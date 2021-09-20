@@ -1,5 +1,6 @@
 //const LOCAL_STORAGE_KEY = "blog";
-
-export default {
+const state = {
 
 };
+
+export default state;
