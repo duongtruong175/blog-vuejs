@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
-    // Variable to the directory contains a view
-    protected $folder = 'frontend.article.';
-
     /**
      * Display articles interface
      */
@@ -51,7 +48,7 @@ class ArticleController extends Controller
             'top_tags' => $top_tags
         ];
 
-        return response($viewdata);
+        return response()->json($viewdata);
     }
 
     /**
@@ -70,6 +67,6 @@ class ArticleController extends Controller
             'comments' => $comments
         ];
 
-        return view($this->folder . 'detail', $viewdata);
+        return response()->json($viewdata);
     }
 }

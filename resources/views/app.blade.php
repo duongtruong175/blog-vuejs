@@ -19,7 +19,7 @@
         <!-- Fonts Google -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -34,5 +34,8 @@
         <div id="app">
             <!-- built files will be auto injected -->
         </div>
+        
+        <!-- Scripts -->
+        <script src="{{ asset('js/jquery-3.6.0.js') }}"></script>
     </body>
 </html>

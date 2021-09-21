@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1>This is about page</h1>
+    <div class="m-10 text-center">
+        <p class="text-2xl">{{ $t('This is about page') }}</p>
     </div>
 </template>
 

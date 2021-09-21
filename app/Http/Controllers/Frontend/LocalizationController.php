@@ -15,7 +15,7 @@ class LocalizationController extends Controller
      */
     public function changeLocale(Request $request, $locale)
     {
-        if(in_array($locale, $this->localeActive)) {
+        if (in_array($locale, $this->localeActive)) {
             $request->session()->put('locale', $locale);
             return redirect()->back();
         }

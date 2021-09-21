@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <div @click="open = ! open">
+        <div class="flex items-center h-full" @click="open = ! open">
             <slot name="trigger"></slot>
         </div>
 
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, ref } from "vue";
-
 export default {
     props: {
         align: {
@@ -33,22 +31,9 @@ export default {
             default: () => ["py-1", "bg-white"],
         },
     },
-    setup() {
-        let open = ref(false);
-
-        const closeOnEscape = (e) => {
-            if (open.value && e.keyCode === 27) {
-                open.value = false;
-            }
-        };
-
-        onMounted(() => document.addEventListener("keydown", closeOnEscape));
-        onUnmounted(() =>
-            document.removeEventListener("keydown", closeOnEscape)
-        );
-
+    data() {
         return {
-            open,
+            open: false,
         };
     },
     computed: {
