@@ -10,7 +10,7 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
-                                <router-link :to="{ name: 'Home'}">
+                                <router-link :to="{ name: 'Home' }">
                                     <application-logo class="block h-10 w-auto fill-current text-gray-600"></application-logo>
                                 </router-link>
                                 <span class="ml-4 font-medium text-2xl">
@@ -20,13 +20,13 @@
 
                             <!-- Links on Left Naigation-->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <nav-link v-bind:href="{ name: 'Home'}" v-bind:active="routeName === 'Home'">
+                                <nav-link v-bind:href="{ name: 'Home' }" v-bind:active="routeName === 'Home'">
                                     {{ $t('Home') }}
                                 </nav-link>
-                                <nav-link v-bind:href="{ name: 'ArticlesIndex'}" v-bind:active="routeName === 'ArticlesIndex'">
+                                <nav-link v-bind:href="{ name: 'ArticlesIndex' }" v-bind:active="routeName === 'ArticlesIndex'">
                                     {{ $t('Articles') }}
                                 </nav-link>
-                                <nav-link v-bind:href="{ name: 'About'}" v-bind:active="routeName === 'About'">
+                                <nav-link v-bind:href="{ name: 'About' }" v-bind:active="routeName === 'About'">
                                     {{ $t('About Us') }}
                                 </nav-link>
 
@@ -99,8 +99,8 @@
                                 </template>
                             </dropdown>
                             <div v-else class="px-6 py-4 flex">
-                                <router-link :to="'/login'" class="flex items-center text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Log In') }}</router-link>
-                                <router-link :to="'/register'" class="flex items-center ml-4 text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Register') }}</router-link>
+                                <router-link :to="{ name: 'Login' }" class="flex items-center text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Log In') }}</router-link>
+                                <router-link :to="{ name: 'Register' }" class="flex items-center ml-4 text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Register') }}</router-link>
                             </div>
                         </div>
 
@@ -119,13 +119,13 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <responsive-nav-link v-bind:href="{ name: 'Home'}" v-bind:active="routeName === 'Home'">
+                        <responsive-nav-link v-bind:href="{ name: 'Home' }" v-bind:active="routeName === 'Home'">
                             {{ $t('Home') }}
                         </responsive-nav-link>
-                        <responsive-nav-link v-bind:href="{ name: 'ArticlesIndex'}" v-bind:active="routeName === 'ArticlesIndex'">
+                        <responsive-nav-link v-bind:href="{ name: 'ArticlesIndex' }" v-bind:active="routeName === 'ArticlesIndex'">
                             {{ $t('Articles') }}
                         </responsive-nav-link>
-                        <responsive-nav-link v-bind:href="{ name: 'About'}" v-bind:active="routeName === 'About'">
+                        <responsive-nav-link v-bind:href="{ name: 'About' }" v-bind:active="routeName === 'About'">
                             {{ $t('About Us') }}
                         </responsive-nav-link>
                         <!-- Locale -->
@@ -189,10 +189,10 @@
                     </div>
                     <div v-else class="pt-2 pb-3 border-t border-gray-200">
                         <div class="space-y-1">
-                            <router-link :to="'/login'" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">{{ $t('Log In') }}</router-link>
+                            <router-link :to="{ name: 'Login' }" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">{{ $t('Log In') }}</router-link>
                         </div>
                         <div class="mt-3 space-y-1">
-                            <router-link :to="'/register'" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">{{ $t('Register') }}</router-link>
+                            <router-link :to="{ name: 'Register' }" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">{{ $t('Register') }}</router-link>
                         </div>
                     </div>
                 </div>

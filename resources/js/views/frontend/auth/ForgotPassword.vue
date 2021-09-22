@@ -5,6 +5,10 @@
                 <application-logo class="w-20 h-20 fill-current text-gray-500"></application-logo>
             </template>
 
+            <div class="mb-4 text-sm text-gray-600">
+                {{ $t('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+            </div>
+
             <!-- Session Status -->
             <auth-session-status class="mb-4" v-bind:status="status"></auth-session-status>
 
@@ -20,27 +24,9 @@
                     <base-input id="email" class="block mt-1 w-full" type="email" name="email" v-model="form.email" required autofocus></base-input>
                 </div>
 
-                <!-- Password -->
-                <div class="mt-4">
-                    <base-label for="password" v-bind:value="$t('Password')"></base-label>
-                    <base-input id="password" class="block mt-1 w-full" type="password" name="password" v-model="form.password" required autocomplete="current-password"></base-input>
-                </div>
-
-                <!-- Remember Me -->
-                <div class="block mt-4">
-                    <label for="remember_me" class="inline-flex items-center">
-                        <input id="remember_me" type="checkbox" v-model="form.remember" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                        <span class="ml-2 text-sm text-gray-600">{{ $t('Remember me') }}</span>
-                    </label>
-                </div>
-
                 <div class="flex items-center justify-end mt-4">
-                    <router-link class="underline text-sm text-gray-600 hover:text-gray-900" :to="{ name: 'ForgotPassword' }">
-                        {{ $t('Forgot your password?') }}
-                    </router-link>
-
-                    <base-button class="ml-3">
-                        {{ $t('Log In') }}
+                    <base-button>
+                        {{ $t('Email Password Reset Link') }}
                     </base-button>
                 </div>
             </form>
@@ -64,8 +50,6 @@ export default {
             errors: {},
             form: {
                 email: "",
-                password: "",
-                remember: false,
             },
         };
     },

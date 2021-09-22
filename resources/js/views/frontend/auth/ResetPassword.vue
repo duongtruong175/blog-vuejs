@@ -11,16 +11,13 @@
             <form method="POST" action="#">
                 <!-- @csrf -->
 
-                <!-- Name -->
-                <div>
-                    <base-label for="name" v-bind:value="$t('Name')"></base-label>
-                    <base-input id="name" class="block mt-1 w-full" type="text" name="name" v-model="form.name" required autofocus></base-input>
-                </div>
+                <!-- Password Reset Token -->
+                <input type="hidden" name="token" v-model="form.token">
 
                 <!-- Email Address -->
-                <div class="mt-4">
+                <div>
                     <base-label for="email" v-bind:value="$t('Email')"></base-label>
-                    <base-input id="email" class="block mt-1 w-full" type="email" name="email" v-model="form.email" required></base-input>
+                    <base-input id="email" class="block mt-1 w-full" type="email" name="email" v-model="form.email" required autofocus></base-input>
                 </div>
 
                 <!-- Password -->
@@ -36,12 +33,8 @@
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
-                    <router-link class="underline text-sm text-gray-600 hover:text-gray-900" :to="{ name: 'Login' }">
-                        {{ $t('Already registered?') }}
-                    </router-link>
-
-                    <base-button class="ml-4">
-                        {{ $t('Register') }}
+                    <base-button>
+                        {{ $t('Reset Password') }}
                     </base-button>
                 </div>
             </form>
@@ -62,7 +55,7 @@ export default {
         return {
             errors: {},
             form: {
-                name: "",
+                token: "",
                 email: "",
                 password: "",
                 password_confirmation: "",
@@ -76,6 +69,9 @@ export default {
         BaseButton,
         BaseLabel,
         BaseInput,
+    },
+    created() {
+        this.form.token = this.$route.query.token;
     },
 };
 </script>

@@ -10,32 +10,30 @@
 
                 <div class="w-full sm:mx-2 sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                     <!-- Session Status -->
-                    <auth-session-status class="mb-4" v-bind:status="''"></auth-session-status>
+                    <auth-session-status class="mb-4" v-bind:status="status"></auth-session-status>
 
                     <!-- Validation Errors -->
                     <auth-validation-errors class="mb-4" v-bind:errors="errors"></auth-validation-errors>
 
-                    <form method="POST" action="">
+                    <form method="POST" action="#">
                         <!-- @csrf -->
 
                         <!-- Email Address -->
                         <div>
                             <base-label for="email" v-bind:value="$t('Email')"></base-label>
-
-                            <base-input id="email" class="block mt-1 w-full" type="email" name="email" v-bind:value="''" required autofocus></base-input>
+                            <base-input id="email" class="block mt-1 w-full" type="email" name="email" v-model="form.email" required autofocus></base-input>
                         </div>
 
                         <!-- Password -->
                         <div class="mt-4">
                             <base-label for="password" v-bind:value="$t('Password')"></base-label>
-
-                            <base-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password"></base-input>
+                            <base-input id="password" class="block mt-1 w-full" type="password" name="password" v-model="form.password" required autocomplete="current-password"></base-input>
                         </div>
 
                         <!-- Remember Me -->
                         <div class="block mt-4">
                             <label for="remember_me" class="inline-flex items-center">
-                                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
+                                <input id="remember_me" type="checkbox" v-model="form.remember" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                                 <span class="ml-2 text-sm text-gray-600">{{ $t('Remember me') }}</span>
                             </label>
                         </div>
@@ -70,7 +68,13 @@ import BaseInput from "../../../components/BaseInput.vue";
 export default {
     data() {
         return {
+            status: "",
             errors: {},
+            form: {
+                email: "",
+                password: "",
+                remember: false,
+            },
         };
     },
     components: {

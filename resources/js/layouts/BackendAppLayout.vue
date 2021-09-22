@@ -5,7 +5,7 @@
             <nav class="lg:hidden py-6 px-6 border-b">
                 <div class="flex items-center justify-between">
                     <div class="flex">
-                        <router-link class="text-2xl font-semibold" :to="{}">
+                        <router-link class="text-2xl font-semibold" :to="{ name: 'BackendHome' }">
                             <application-logo class="block h-8 w-auto fill-current text-gray-600"></application-logo>
                         </router-link>
                         <span class="ml-2 font-medium text-2xl">{{ $t('Admin Blog') }}</span>
@@ -24,7 +24,7 @@
                 <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-2/4 lg:w-56 sm:w-56 pt-6 pb-8 bg-white border-r overflow-y-auto">
                     <div class="flex w-full items-center px-6 pb-6 mb-6 lg:border-b">
                         <div class="flex">
-                            <router-link class="text-xl font-semibold" :to="{}">
+                            <router-link class="text-xl font-semibold" :to="{ name: 'BackendHome' }">
                                 <application-logo class="block h-8 w-auto fill-current text-gray-600"></application-logo>
                             </router-link>
                             <span class="ml-2 font-medium text-2xl">{{ $t('Admin Blog') }}</span>
@@ -34,7 +34,7 @@
                         <h3 class="mb-2 text-xs uppercase text-gray-500 font-medium">{{ $t('Resource') }}</h3>
                         <ul class="mb-8 text-sm font-medium">
                             <li>
-                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{}">
+                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{ name: 'BackendDashboard' }">
                                     <span class="inline-block mr-3">
                                         <dashboard-icon class="text-gray-300 w-5 h-5"></dashboard-icon>
                                     </span>
@@ -42,7 +42,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{}">
+                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{ name: 'BackendUsersIndex' }">
                                     <span class="inline-block mr-3">
                                         <user-icon class="text-gray-300 w-5 h-5"></user-icon>
                                     </span>
@@ -50,7 +50,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{}">
+                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{ name: 'BackendRolesIndex' }">
                                     <span class="inline-block mr-3">
                                         <role-icon class="text-gray-300 w-5 h-5"></role-icon>
                                     </span>
@@ -58,7 +58,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{}">
+                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{ name: 'BackendArticlesIndex' }">
                                     <span class="inline-block mr-3">
                                         <article-icon class="text-gray-300 w-5 h-5"></article-icon>
                                     </span>
@@ -66,7 +66,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{}">
+                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{ name: 'BackendCategoriesIndex' }">
                                     <span class="inline-block mr-3">
                                         <category-icon class="text-gray-300 w-5 h-5"></category-icon>
                                     </span>
@@ -74,7 +74,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{}">
+                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{ name: 'BackendTagsIndex' }">
                                     <span class="inline-block mr-3">
                                         <tag-icon class="text-gray-300 w-5 h-5"></tag-icon>
                                     </span>
@@ -82,7 +82,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{}">
+                                <router-link class="flex items-center pl-3 py-3 pr-4 rounded" :to="{ name: 'BackendCommentsIndex' }">
                                     <span class="inline-block mr-3">
                                         <comment-icon class="text-gray-300 w-5 h-5"></comment-icon>
                                     </span>
@@ -115,7 +115,7 @@
                     <nav class="relative">
                         <div class="flex items-center">
                             <div class="flex items-center mr-auto">
-                                <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendHome' }">
                                     <span class="inline-block mr-2">
                                         <home-icon class="text-indigo-500"></home-icon>
                                     </span>
@@ -125,7 +125,7 @@
                                     <span class="inline-block mx-3">
                                         <arrow-right-icon class="text-indigo-500 w-4 h-4"></arrow-right-icon>
                                     </span>
-                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendDashboard' }">
                                         <span class="inline-block mr-2">
                                             <dashboard-icon class="text-indigo-500" width="20" height="20"></dashboard-icon>
                                         </span>
@@ -136,7 +136,7 @@
                                     <span class="inline-block mx-3">
                                         <arrow-right-icon class="text-indigo-500 w-4 h-4"></arrow-right-icon>
                                     </span>
-                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendUsersIndex' }">
                                         <span class="inline-block mr-2">
                                             <user-icon class="text-indigo-500" width="20" height="20"></user-icon>
                                         </span>
@@ -147,7 +147,7 @@
                                     <span class="inline-block mx-3">
                                         <arrow-right-icon class="text-indigo-500 w-4 h-4"></arrow-right-icon>
                                     </span>
-                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendRolesIndex' }">
                                         <span class="inline-block mr-2">
                                             <role-icon class="text-indigo-500" width="20" height="20"></role-icon>
                                         </span>
@@ -158,7 +158,7 @@
                                     <span class="inline-block mx-3">
                                         <arrow-right-icon class="text-indigo-500 w-4 h-4"></arrow-right-icon>
                                     </span>
-                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendArticlesIndex' }">
                                         <span class="inline-block mr-2">
                                             <article-icon class="text-indigo-500" width="20" height="20"></article-icon>
                                         </span>
@@ -169,7 +169,7 @@
                                     <span class="inline-block mx-3">
                                         <arrow-right-icon class="text-indigo-500 w-4 h-4"></arrow-right-icon>
                                     </span>
-                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendCategoriesIndex' }">
                                         <span class="inline-block mr-2">
                                             <category-icon class="text-indigo-500" width="20" height="20"></category-icon>
                                         </span>
@@ -180,7 +180,7 @@
                                     <span class="inline-block mx-3">
                                         <arrow-right-icon class="text-indigo-500 w-4 h-4"></arrow-right-icon>
                                     </span>
-                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendTagsIndex' }">
                                         <span class="inline-block mr-2">
                                             <tag-icon class="text-indigo-500" width="20" height="20"></tag-icon>
                                         </span>
@@ -191,7 +191,7 @@
                                     <span class="inline-block mx-3">
                                         <arrow-right-icon class="text-indigo-500 w-4 h-4"></arrow-right-icon>
                                     </span>
-                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{}">
+                                    <router-link class="flex items-center text-sm hover:text-gray-800" :to="{ name: 'BackendCommentsIndex' }">
                                         <span class="inline-block mr-2">
                                             <comment-icon class="text-indigo-500" width="20" height="20"></comment-icon>
                                         </span>
