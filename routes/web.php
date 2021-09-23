@@ -18,19 +18,19 @@
 use App\Http\Controllers\Frontend\LocalizationController;
 use Illuminate\Support\Facades\Route;
 
-// router to vuejs
-// Route::get('/', function () {
-//     return view('app');
-// });
-// Route::get('/admin', function () {
-//     return view('app');
-// });
-// Route::get('/admin/login', function () {
-//     return view('app');
-// });
-Route::get('/{slug?}', function () {
+//router to vuejs
+Route::get('/', function () {
     return view('app');
 });
+Route::get('/admin', function () {
+    return view('app');
+});
+Route::get('/admin/login', function () {
+    return view('app');
+});
+// Route::get('/{slug?}', function () {
+//     return view('app');
+// })->where('slug', '^.*$');
 
 // Frontend
 require __DIR__ . '/frontend.php';

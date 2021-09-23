@@ -5,6 +5,9 @@ import App from './App.vue';
 import i18n from './lang/i18n';
 import store from './store/store';
 import router from './router/router';
+import common from './mixins/common';
+
+Vue.mixin(common);
 
 Vue.config.productionTip = false;
 

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/auth.php';
 
 // Article
-Route::prefix('articles')->group(function () {
+Route::prefix('api/v1/articles')->group(function () {
     Route::get('/', [ArticleController::class, 'index'])
         ->name('articles.index');
     Route::get('/{id}', [ArticleController::class, 'show'])
