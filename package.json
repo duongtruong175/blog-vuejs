@@ -24,5 +24,8 @@
         "vue-template-compiler": "^2.6.14",
         "vuex": "^3.6.2",
         "vue-router": "^3.5.2"
+    },
+    "dependencies": {
+        "vue-loading-overlay": "^3.0.1"
     }
 }

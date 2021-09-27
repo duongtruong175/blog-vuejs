@@ -27,6 +27,18 @@ class Article extends Model implements HasMedia
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'large_image_url',
+        'thumb_image_url',
+        'categories_links',
+        'tags_links'
+    ];
+
+    /**
      * Get the comments for the article.
      * one to many
      */
@@ -61,15 +73,14 @@ class Article extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+
     /**
      * Get all categories owned by article and return links to view them
-     * href="'.route('articles.index').'?category_id='.$category->id.'"
      */
     public function getCategoriesLinksAttribute()
     {
-        $categories = $this->categories()->get()->map(function($category) {
-            return '<a class="text-blue-500" href="' . route('articles.index') . '?category_id=' . $category->id . '">' . $category->name . '</a>';
+        $categories = $this->categories()->get()->map(function ($category) {
+            return '<router-link class="text-blue-500" :to="{}">' . $category->name . '</router-link>';
         })->implode(' | ');
 
         if ($categories == '') return 'none';
@@ -79,17 +90,31 @@ class Article extends Model implements HasMedia
 
     /**
      * Get all tags owned by article and return links to view them
-     * href="'.route('articles.index').'?tag_id='.$tag->id.'"
      */
     public function getTagsLinksAttribute()
     {
-        $tags = $this->tags()->get()->map(function($tag) {
-            return '<a class="text-blue-500" href="' . route('articles.index') . '?tag_id=' . $tag->id . '">' . $tag->name . '</a>';
+        $tags = $this->tags()->get()->map(function ($tag) {
+            return '<a class="text-blue-500" :to="{}">' . $tag->name . '</a>';
         })->implode(' | ');
 
         if ($tags == '') return 'none';
 
         return $tags;
+    }
+
+    /**
+     * Auto add variable in $appends to model
+     * var: full_name
+     * function: getFullNameAttribute
+     */
+    public function getLargeImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('images_url', 'large');
+    }
+
+    public function getThumbImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('images_url', 'thumb');
     }
 
     public function registerMediaConversions(Media $media = null)

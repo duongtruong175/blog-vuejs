@@ -23,18 +23,8 @@ class CommentController extends Controller
             'user_id' => $request->user_id,
             'content' => $request->content
         ]);
+        $comment = $comment->load('user');
 
-        if($comment) {
-            $user_name = $comment->user->name;
-            $time_created = $comment->time_elapsed_string($comment->created_at);
-            $content = $comment->content;
-            return response()->json([
-                'user_name' => $user_name,
-                'time_created' => $time_created,
-                'content' => $content
-            ]);
-        } else {
-            return abort(500);
-        }
+        return $comment;
     }
 }

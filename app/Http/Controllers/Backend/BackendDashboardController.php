@@ -12,8 +12,6 @@ use App\Models\User;
 
 class BackendDashboardController extends Controller
 {
-    // Variable to the directory contains a view
-    protected $folder = 'backend.dashboard.';
     /**
      * Display a listing of the resource.
      *
@@ -38,6 +36,6 @@ class BackendDashboardController extends Controller
             'total_users' => $total_users
         ];
 
-        return view($this->folder . 'index', $view_data);
+        return response()->json($view_data);
     }
 }

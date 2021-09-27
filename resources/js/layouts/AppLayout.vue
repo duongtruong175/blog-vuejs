@@ -20,18 +20,18 @@
 
                             <!-- Links on Left Naigation-->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <nav-link v-bind:href="{ name: 'Home' }" v-bind:active="routeName === 'Home'">
+                                <nav-link :href="{ name: 'Home' }" :active="$route.name == 'Home'">
                                     {{ $t('Home') }}
                                 </nav-link>
-                                <nav-link v-bind:href="{ name: 'ArticlesIndex' }" v-bind:active="routeName === 'ArticlesIndex'">
+                                <nav-link :href="{ name: 'ArticlesIndex' }" :active="$route.name == 'ArticlesIndex' || $route.name == 'ArticlesShow'">
                                     {{ $t('Articles') }}
                                 </nav-link>
-                                <nav-link v-bind:href="{ name: 'About' }" v-bind:active="routeName === 'About'">
+                                <nav-link :href="{ name: 'About' }" :active="$route.name == 'About'">
                                     {{ $t('About Us') }}
                                 </nav-link>
 
                                 <!-- Locale -->
-                                <dropdown v-bind:align="'top'" v-bind:width="'40'">
+                                <dropdown :align="'top'" :width="'40'">
                                     <!-- Click to open dropdown -->
                                     <template v-slot:trigger>
                                         <button class="p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out">
@@ -47,7 +47,7 @@
                                     <!-- Dropdown -->
                                     <template v-slot:content>
                                         <div class="mx-1">
-                                            <dropdown-link v-bind:href="'/locale/en'">
+                                            <dropdown-link :href="'/locale/en'">
                                                 <div class="flex items-center">
                                                     <en-flag class="w-6 h-4"></en-flag>
                                                     <span class="text-sm pl-2">
@@ -57,7 +57,7 @@
                                             </dropdown-link>
                                         </div>
                                         <div class="mx-1">
-                                            <dropdown-link v-bind:href="'/locale/vi'">
+                                            <dropdown-link :href="'/locale/vi'">
                                                 <div class="flex items-center">
                                                     <vi-flag class="w-6 h-4"></vi-flag>
                                                     <span class="text-sm pl-2">
@@ -73,7 +73,7 @@
 
                         <!-- Links on Right Navigation + Settings Dropdown (screen > sm (640px)) -->
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <dropdown v-if="user.name" v-bind:align="'right'" v-bind:width="'40'">
+                            <dropdown v-if="user.id" :align="'right'" :width="'40'">
                                 <template v-slot:trigger>
                                     <button class="flex items-center text-base font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                                         <div>{{ user.name }}</div>
@@ -89,8 +89,6 @@
                                 <template v-slot:content>
                                     <!-- Authentication -->
                                     <form method="POST" action="/logout">
-                                        <!-- @csrf -->
-
                                         <dropdown-link @click="event.preventDefault();
                                                                 this.closest('form').submit();">
                                             {{ $t('Log Out') }}
@@ -119,17 +117,17 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <responsive-nav-link v-bind:href="{ name: 'Home' }" v-bind:active="routeName === 'Home'">
+                        <responsive-nav-link :href="{ name: 'Home' }" :active="$route.name == 'Home'">
                             {{ $t('Home') }}
                         </responsive-nav-link>
-                        <responsive-nav-link v-bind:href="{ name: 'ArticlesIndex' }" v-bind:active="routeName === 'ArticlesIndex'">
+                        <responsive-nav-link :href="{ name: 'ArticlesIndex' }" :active="$route.name == 'ArticlesIndex' || $route.name == 'ArticlesShow'">
                             {{ $t('Articles') }}
                         </responsive-nav-link>
-                        <responsive-nav-link v-bind:href="{ name: 'About' }" v-bind:active="routeName === 'About'">
+                        <responsive-nav-link :href="{ name: 'About' }" :active="$route.name == 'About'">
                             {{ $t('About Us') }}
                         </responsive-nav-link>
                         <!-- Locale -->
-                        <dropdown class="ml-2" v-bind:align="'top'" v-bind:width="'40'">
+                        <dropdown class="ml-2" :align="'top'" :width="'40'">
                             <!-- Click to open dropdown -->
                             <template v-slot:trigger>
                                 <button class="p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out">
@@ -145,7 +143,7 @@
                             <!-- Dropdown -->
                             <template v-slot:content>
                                 <div class="mx-1">
-                                    <dropdown-link v-bind:href="'/locale/en'">
+                                    <dropdown-link :href="'/locale/en'">
                                         <div class="flex items-center">
                                             <en-flag class="w-6 h-4"></en-flag>
                                             <span class="text-sm pl-2">
@@ -155,7 +153,7 @@
                                     </dropdown-link>
                                 </div>
                                 <div class="mx-1">
-                                    <dropdown-link v-bind:href="'/locale/vi'">
+                                    <dropdown-link :href="'/locale/vi'">
                                         <div class="flex items-center">
                                             <vi-flag class="w-6 h-4"></vi-flag>
                                             <span class="text-sm pl-2">
@@ -169,7 +167,7 @@
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div v-if="user.name" class="pt-4 pb-1 border-t border-gray-200">
+                    <div v-if="user.id" class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-800">{{ user.name }}</div>
                             <div class="font-medium text-sm text-gray-500">{{ user.email }}</div>
@@ -178,8 +176,6 @@
                         <div class="mt-3 space-y-1">
                             <!-- Authentication -->
                             <form method="POST" action="/logout">
-                                <!-- @csrf -->
-
                                 <responsive-nav-link @click="event.preventDefault();
                                                         this.closest('form').submit();">
                                     {{ $t('Log Out') }}
@@ -189,10 +185,14 @@
                     </div>
                     <div v-else class="pt-2 pb-3 border-t border-gray-200">
                         <div class="space-y-1">
-                            <router-link :to="{ name: 'Login' }" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">{{ $t('Log In') }}</router-link>
+                            <responsive-nav-link :href="{ name: 'Login' }" :active="$route.name == 'Login'">
+                                {{ $t('Log In') }}
+                            </responsive-nav-link>
                         </div>
                         <div class="mt-3 space-y-1">
-                            <router-link :to="{ name: 'Register' }" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">{{ $t('Register') }}</router-link>
+                            <responsive-nav-link :href="{ name: 'Register' }" :active="$route.name == 'Register'">
+                                {{ $t('Register') }}
+                            </responsive-nav-link>
                         </div>
                     </div>
                 </div>
@@ -222,14 +222,6 @@ import Dropdown from "../components/Dropdown.vue";
 import DropdownLink from "../components/DropdownLink.vue";
 
 export default {
-    data() {
-        return {
-            locale: "en",
-            showingNavigationDropdown: false,
-            user: {},
-            routeName: "Home",
-        };
-    },
     components: {
         ApplicationLogo,
         NavLink,
@@ -238,6 +230,13 @@ export default {
         ViFlag,
         DropdownLink,
         ResponsiveNavLink,
+    },
+    data() {
+        return {
+            locale: "en",
+            showingNavigationDropdown: false,
+            user: this.$store.state.user,
+        };
     },
 };
 </script>

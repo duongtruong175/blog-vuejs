@@ -58,6 +58,14 @@ import BaseLabel from "../../../components/BaseLabel.vue";
 import BaseInput from "../../../components/BaseInput.vue";
 
 export default {
+    components: {
+        AuthCard,
+        ApplicationLogo,
+        AuthValidationErrors,
+        BaseButton,
+        BaseLabel,
+        BaseInput,
+    },
     data() {
         return {
             errors: {},
@@ -68,14 +76,6 @@ export default {
                 password_confirmation: "",
             },
         };
-    },
-    components: {
-        AuthCard,
-        ApplicationLogo,
-        AuthValidationErrors,
-        BaseButton,
-        BaseLabel,
-        BaseInput,
     },
 };
 </script>

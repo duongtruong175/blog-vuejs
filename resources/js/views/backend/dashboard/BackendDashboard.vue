@@ -4,7 +4,11 @@
         <div class="text-3xl p-4 mb-8">
             {{ $t('Dashboard') }}
         </div>
-        <div class="flex flex-wrap">
+        <!-- Loading component -->
+        <div v-if="isLoading" class="relative w-full h-96">
+            <loading :active.sync="isLoading" :is-full-page="false" :height="40" :width="40" :color="'#007BFF'" :loader="'dots'"></loading>
+        </div>
+        <div v-if="!isLoading" class="flex flex-wrap">
             <div class="w-1/2 sm:w-1/3 lg:w-1/4 px-2">
                 <div class="bg-blue-400 relative rounded mb-4">
                     <div class="items-center text-center sm:text-left sm:block text-white p-6">
@@ -133,16 +137,6 @@ import RoleIcon from "../../../components/RoleIcon.vue";
 import TagIcon from "../../../components/TagIcon.vue";
 
 export default {
-    data() {
-        return {
-            total_users: 0,
-            total_articles: 0,
-            total_categories: 0,
-            total_comments: 0,
-            total_roles: 0,
-            total_tags: 0,
-        };
-    },
     components: {
         ArrowCircleRightIcon,
         UserIcon,
@@ -152,13 +146,32 @@ export default {
         RoleIcon,
         TagIcon,
     },
-    created() {
-        this.total_users = 10;
-        this.total_articles = 5;
-        this.total_categories = 6;
-        this.total_comments = 8;
-        this.total_roles = 9;
-        this.total_tags = 15;
+    data() {
+        return {
+            total_users: Number,
+            total_articles: Number,
+            total_categories: Number,
+            total_comments: Number,
+            total_roles: Number,
+            total_tags: Number,
+            isLoading: true,
+        };
+    },
+    async created() {
+        this.isLoading = true;
+        const url = "admin/dashboard";
+        const res = await this.callApi("get", url);
+        if (res.status === 200) {
+            this.total_users = res.data.total_users;
+            this.total_articles = res.data.total_articles;
+            this.total_categories = res.data.total_categories;
+            this.total_comments = res.data.total_comments;
+            this.total_roles = res.data.total_roles;
+            this.total_tags = res.data.total_tags;
+            this.isLoading = false;
+        } else {
+            alert("Get data error. Please reload page !");
+        }
     },
 };
 </script>

@@ -9,24 +9,19 @@
                 </div>
 
                 <div class="w-full sm:mx-2 sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                    <!-- Session Status -->
-                    <auth-session-status class="mb-4" v-bind:status="status"></auth-session-status>
-
                     <!-- Validation Errors -->
-                    <auth-validation-errors class="mb-4" v-bind:errors="errors"></auth-validation-errors>
+                    <auth-validation-errors class="mb-4" :errors="errors"></auth-validation-errors>
 
-                    <form method="POST" action="#">
-                        <!-- @csrf -->
-
+                    <form @submit.prevent="login">
                         <!-- Email Address -->
                         <div>
-                            <base-label for="email" v-bind:value="$t('Email')"></base-label>
+                            <base-label for="email" :value="$t('Email')"></base-label>
                             <base-input id="email" class="block mt-1 w-full" type="email" name="email" v-model="form.email" required autofocus></base-input>
                         </div>
 
                         <!-- Password -->
                         <div class="mt-4">
-                            <base-label for="password" v-bind:value="$t('Password')"></base-label>
+                            <base-label for="password" :value="$t('Password')"></base-label>
                             <base-input id="password" class="block mt-1 w-full" type="password" name="password" v-model="form.password" required autocomplete="current-password"></base-input>
                         </div>
 
@@ -39,7 +34,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <base-button class="ml-3">
+                            <base-button :class="{ 'opacity-25': isFormLoading }" :disabled="isFormLoading" class="ml-3">
                                 {{ $t('Log In') }}
                             </base-button>
                         </div>
@@ -59,31 +54,50 @@
 
 <script>
 import ApplicationLogo from "../../../components/ApplicationLogo.vue";
-import AuthSessionStatus from "../../../components/AuthSessionStatus.vue";
 import AuthValidationErrors from "../../../components/AuthValidationErrors.vue";
 import BaseButton from "../../../components/BaseButton.vue";
 import BaseLabel from "../../../components/BaseLabel.vue";
 import BaseInput from "../../../components/BaseInput.vue";
 
 export default {
+    components: {
+        ApplicationLogo,
+        AuthValidationErrors,
+        BaseButton,
+        BaseLabel,
+        BaseInput,
+    },
     data() {
         return {
-            status: "",
-            errors: {},
             form: {
                 email: "",
                 password: "",
                 remember: false,
             },
+            errors: [],
+            isFormLoading: false,
         };
     },
-    components: {
-        ApplicationLogo,
-        AuthSessionStatus,
-        AuthValidationErrors,
-        BaseButton,
-        BaseLabel,
-        BaseInput,
+    methods: {
+        async login() {
+            this.errors = [];
+            this.isFormLoading = true;
+            const url = "admin/login";
+            const res = await this.callApi("post", url, this.form);
+            if (res.status === 200) {
+                this.$store.state.user = res.data.user;
+                this.$router.push({ name: "BackendHome" });
+            } else if (res.status === 422) {
+                for (let i in res.data.errors) {
+                    res.data.errors[i].forEach((error) => {
+                        this.errors.push(error);
+                    });
+                }
+            } else {
+                alert("Post data error. Please try again !");
+            }
+            this.isFormLoading = false;
+        },
     },
 };
 </script>

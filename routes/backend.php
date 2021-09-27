@@ -21,17 +21,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Authentication
-Route::post('/admin/login', [BackendAuthenticationController::class, 'login'])
+Route::post('api/v1/admin/login', [BackendAuthenticationController::class, 'login'])
     ->name('backend_auth.login');
+// 'middleware' => 'admin', 
 
-Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+Route::group(['prefix' => 'api/v1/admin'], function () {
     // Logout
-    Route::post('/admin/logout', [BackendAuthenticationController::class, 'logout'])
+    Route::post('/logout', [BackendAuthenticationController::class, 'logout'])
         ->name('backend_auth.logout');
-
-    // Home
-    Route::get('/', BackendHomeController::class)
-        ->name('backend.home');
 
     // Dashboard
     Route::get('/dashboard', [BackendDashboardController::class, 'index'])
@@ -41,12 +38,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::prefix('users')->group(function () {
         Route::get('/', [BackendUserController::class, 'index'])
             ->name('backend_user.index');
-        Route::get('/create', [BackendUserController::class, 'create'])
-            ->name('backend_user.create');
         Route::post('/', [BackendUserController::class, 'store'])
             ->name('backend_user.store');
-        Route::get('/{id}', [BackendUserController::class, 'show'])
-            ->name('backend_user.show');
         Route::get('/{id}/edit', [BackendUserController::class, 'edit'])
             ->name('backend_user.edit');
         Route::put('/{id}', [BackendUserController::class, 'update'])
@@ -59,12 +52,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::prefix('roles')->group(function () {
         Route::get('/', [BackendRoleController::class, 'index'])
             ->name('backend_role.index');
-        Route::get('/create', [BackendRoleController::class, 'create'])
-            ->name('backend_role.create');
         Route::post('/', [BackendRoleController::class, 'store'])
             ->name('backend_role.store');
-        Route::get('/{id}', [BackendRoleController::class, 'show'])
-            ->name('backend_role.show');
         Route::get('/{id}/edit', [BackendRoleController::class, 'edit'])
             ->name('backend_role.edit');
         Route::put('/{id}', [BackendRoleController::class, 'update'])
@@ -81,8 +70,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             ->name('backend_article.create');
         Route::post('/', [BackendArticleController::class, 'store'])
             ->name('backend_article.store');
-        Route::get('/{id}', [BackendArticleController::class, 'show'])
-            ->name('backend_article.show');
         Route::get('/{id}/edit', [BackendArticleController::class, 'edit'])
             ->name('backend_article.edit');
         Route::put('/{id}', [BackendArticleController::class, 'update'])
@@ -95,12 +82,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::prefix('categories')->group(function () {
         Route::get('/', [BackendCategoryController::class, 'index'])
             ->name('backend_category.index');
-        Route::get('/create', [BackendCategoryController::class, 'create'])
-            ->name('backend_category.create');
         Route::post('/', [BackendCategoryController::class, 'store'])
             ->name('backend_category.store');
-        Route::get('/{id}', [BackendCategoryController::class, 'show'])
-            ->name('backend_category.show');
         Route::get('/{id}/edit', [BackendCategoryController::class, 'edit'])
             ->name('backend_category.edit');
         Route::put('/{id}', [BackendCategoryController::class, 'update'])
@@ -113,12 +96,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::prefix('tags')->group(function () {
         Route::get('/', [BackendTagController::class, 'index'])
             ->name('backend_tag.index');
-        Route::get('/create', [BackendTagController::class, 'create'])
-            ->name('backend_tag.create');
         Route::post('/', [BackendTagController::class, 'store'])
             ->name('backend_tag.store');
-        Route::get('/{id}', [BackendTagController::class, 'show'])
-            ->name('backend_tag.show');
         Route::get('/{id}/edit', [BackendTagController::class, 'edit'])
             ->name('backend_tag.edit');
         Route::put('/{id}', [BackendTagController::class, 'update'])

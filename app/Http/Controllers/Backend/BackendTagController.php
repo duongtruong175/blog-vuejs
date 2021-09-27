@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class BackendTagController extends Controller
 {
-    // Variable to the directory contains a view
-    protected $folder = 'backend.tag.';
-    
     /**
      * Display a listing of the resource.
      *
@@ -26,18 +23,7 @@ class BackendTagController extends Controller
             'tags' => $tags
         ];
 
-        return view($this->folder . 'index', $viewdata);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // redict to create new form
-        return view($this->folder . 'create');
+        return response()->json($viewdata);
     }
 
     /**
@@ -54,20 +40,8 @@ class BackendTagController extends Controller
         $tag = Tag::create([
             'name' => $name
         ]);
-        
 
-        return redirect()->route('backend_tag.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $tag;
     }
 
     /**
@@ -85,7 +59,7 @@ class BackendTagController extends Controller
             'tag' => $tag
         ];
 
-        return view($this->folder . 'edit', $viewdata);
+        return response()->json($viewdata);
     }
 
     /**
@@ -104,7 +78,7 @@ class BackendTagController extends Controller
 
         $tag->save();
 
-        return redirect()->route('backend_tag.index');
+        return $tag;
     }
 
     /**
@@ -122,6 +96,6 @@ class BackendTagController extends Controller
         $tag->articles()->detach();
         $tag->forceDelete();
 
-        return redirect()->route('backend_tag.index');
+        return $tag;
     }
 }

@@ -9,10 +9,6 @@ use Illuminate\Http\Request;
 
 class BackendCategoryController extends Controller
 {
-
-    // Variable to the directory contains a view
-    protected $folder = 'backend.category.';
-    
     /**
      * Display a listing of the resource.
      *
@@ -27,18 +23,7 @@ class BackendCategoryController extends Controller
             'categories' => $categories
         ];
 
-        return view($this->folder . 'index', $viewdata);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // redict to create new form
-        return view($this->folder . 'create');
+        return response()->json($viewdata);
     }
 
     /**
@@ -54,18 +39,7 @@ class BackendCategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('backend_category.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $category;
     }
 
     /**
@@ -83,7 +57,7 @@ class BackendCategoryController extends Controller
             'category' => $category
         ];
 
-        return view($this->folder . 'edit', $viewdata);
+        return response()->json($viewdata);
     }
 
     /**
@@ -101,7 +75,7 @@ class BackendCategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('backend_category.index');
+        return $category;
     }
 
     /**
@@ -119,6 +93,6 @@ class BackendCategoryController extends Controller
         $category->articles()->detach();
         $category->forceDelete();
 
-        return redirect()->route('backend_category.index');
+        return $category;
     }
 }

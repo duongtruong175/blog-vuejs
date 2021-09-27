@@ -4,22 +4,28 @@
         <div class="p-4 text-3xl mr-auto">
             {{ $t('Add new article') }}
         </div>
-        <div class="w-full sm:max-w-4xl mt-6 px-6 py-4 bg-white sm:rounded-lg">
-            <form method="POST" action="#" enctype="multipart/form-data">
-                <!-- @csrf -->
-
+        <!-- Loading component -->
+        <div v-if="isLoading" class="relative w-full h-96">
+            <loading :active.sync="isLoading" :is-full-page="false" :height="40" :width="40" :color="'#007BFF'" :loader="'dots'"></loading>
+        </div>
+        <div v-if="!isLoading" class="w-full sm:max-w-4xl mt-6 px-6 py-4 bg-white sm:rounded-lg">
+            <form @submit.prevent="addArticle" enctype="multipart/form-data">
                 <!-- Title -->
                 <div>
                     <label for="title" class="block font-medium text-sm text-gray-700">{{ $t('Title') }}</label>
                     <input class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" id="title" name="title" v-model="form.title" required autofocus />
-                    <div v-if="errors.title" class="text-xs text-red-900 py-1 px-2">{{ errors.title }}</div>
+                    <ul class="text-xs text-red-900">
+                        <li v-for="(error, index) in errors.title" :key="index" class="py-1 px-2">{{ error }}</li>
+                    </ul>
                 </div>
 
                 <!-- Content -->
                 <div class="mt-4">
                     <label for="content" class="block font-medium text-sm text-gray-700">{{ $t('Content') }}</label>
                     <textarea rows="10" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" style="min-height: 6.725rem" id="content" name="content" v-model="form.content" required></textarea>
-                    <div v-if="errors.content" class="text-xs text-red-900 py-1 px-2">{{ errors.content }}</div>
+                    <ul class="text-xs text-red-900">
+                        <li v-for="(error, index) in errors.content" :key="index" class="py-1 px-2">{{ error }}</li>
+                    </ul>
                 </div>
 
                 <!-- Categories -->
@@ -31,25 +37,31 @@
                             <label class="pl-2" :for="'category_' + category.id">{{ category.name }}</label>
                         </div>
                     </div>
-                    <div v-if="errors.categories" class="text-xs text-red-900 py-1 px-2">{{ errors.categories }}</div>
+                    <ul class="text-xs text-red-900">
+                        <li v-for="(error, index) in errors.categories" :key="index" class="py-1 px-2">{{ error }}</li>
+                    </ul>
                 </fieldset>
 
                 <!-- Tags -->
                 <div class="mt-4">
                     <label for="tags" class="block font-medium text-sm text-gray-700">{{ $t('Tags') + ' (' + $t('Comma-separated values') + ')' }}</label>
                     <input class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" id="tags" name="tags" v-model="form.tags" />
-                    <div v-if="errors.tags" class="text-xs text-red-900 py-1 px-2">{{ errors.tags }}</div>
+                    <ul class="text-xs text-red-900">
+                        <li v-for="(error, index) in errors.tags" :key="index" class="py-1 px-2">{{ error }}</li>
+                    </ul>
                 </div>
 
                 <!-- Image -->
                 <div class="mt-4">
                     <label for="image_url" class="block font-medium text-sm text-gray-700">{{ $t('Image') }}</label>
                     <input class="block mt-1 p-1 text-center text-sm" type="file" v-on:change="onImageChange" id="image_url" name="image_url" />
-                    <div v-if="errors.image_url" class="text-xs text-red-900 py-1 px-2">{{ errors.image_url }}</div>
+                    <ul class="text-xs text-red-900">
+                        <li v-for="(error, index) in errors.image_url" :key="index" class="py-1 px-2">{{ error }}</li>
+                    </ul>
                 </div>
 
                 <div class="mt-8 flex-row">
-                    <button class="ml-3 inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150" type="submit">
+                    <button :class="{ 'opacity-25': isFormLoading }" :disabled="isFormLoading" class="ml-3 inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150" type="submit">
                         {{ $t('Add') }}
                     </button>
                     <router-link :to="{ name: 'BackendArticlesIndex' }" class="ml-3 inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
@@ -65,16 +77,29 @@
 export default {
     data() {
         return {
-            categories: {},
+            categories: [],
             form: {
                 title: "",
                 content: "",
                 categories: [],
                 tags: "",
-                image: "",
+                image_url: "",
             },
             errors: {},
+            isLoading: true,
+            isFormLoading: false,
         };
+    },
+    async created() {
+        this.isLoading = true;
+        const url = "admin/articles/create";
+        const res = await this.callApi("get", url);
+        if (res.status === 200) {
+            this.categories = res.data.categories;
+            this.isLoading = false;
+        } else {
+            alert("Get data error. Please reload page !");
+        }
     },
     methods: {
         onImageChange(e) {
@@ -86,9 +111,23 @@ export default {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.form.image = e.target.result;
+                vm.form.image_url = e.target.result;
             };
             reader.readAsDataURL(file);
+        },
+        async addArticle() {
+            this.errors = {};
+            this.isFormLoading = true;
+            const url = "admin/articles";
+            const res = await this.callApi("post", url, this.form);
+            if (res.status === 201) {
+                this.$router.push({ name: "BackendArticlesIndex" });
+            } else if (res.status === 422) {
+                this.errors = res.data.errors;
+            } else {
+                alert("Post data error. Please try again !");
+            }
+            this.isFormLoading = false;
         },
     },
 };

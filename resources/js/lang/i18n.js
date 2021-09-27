@@ -6,10 +6,10 @@ import translateVi from "./vi";
 Vue.use(VueI18n);
 
 export default new VueI18n({
-  locale: "en",
-  silentTranslationWarn: true,
-  messages: {
-    en: translateEn,
-    vi: translateVi,
-  },
+    locale: "en",
+    silentTranslationWarn: true,
+    messages: {
+        en: translateEn,
+        vi: translateVi,
+    },
 });

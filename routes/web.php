@@ -22,12 +22,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('app');
 });
-Route::get('/admin', function () {
+Route::get('/about', function () {
     return view('app');
 });
-Route::get('/admin/login', function () {
+Route::get('/login', function () {
     return view('app');
 });
+Route::get('/register', function () {
+    return view('app');
+});
+Route::get('/articles/{slug?}', function () {
+    return view('app');
+})->where('slug', '^.*$');
+Route::get('/admin/{slug?}', function () {
+    return view('app');
+})->where('slug', '^.*$');
+
 // Route::get('/{slug?}', function () {
 //     return view('app');
 // })->where('slug', '^.*$');
@@ -35,8 +45,8 @@ Route::get('/admin/login', function () {
 // Frontend
 require __DIR__ . '/frontend.php';
 
-// // Backend
-// require __DIR__ . '/backend.php';
+// Backend
+require __DIR__ . '/backend.php';
 
 // Route change Language
 Route::get('/locale/{locale}', [LocalizationController::class, 'changeLocale'])

@@ -3,7 +3,3 @@
         <p class="text-2xl">{{ $t('Welcome to our blog') }}</p>
     </div>
 </template>
-
-<script>
-export default {};
-</script>

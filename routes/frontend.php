@@ -26,6 +26,6 @@ Route::prefix('api/v1/articles')->group(function () {
 
 Route::group(['middleware' => 'auth'], function () {
     // Comment
-    Route::post('/comments', [CommentController::class, 'store'])
+    Route::post('api/v1/comments', [CommentController::class, 'store'])
         ->name('comment.store');
 });

@@ -7,9 +7,6 @@ use App\Models\Comment;
 
 class BackendCommentController extends Controller
 {
-    // Variable to the directory contains a view
-    protected $folder = 'backend.comment.';
-    
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +21,7 @@ class BackendCommentController extends Controller
             'comments' => $comments
         ];
 
-        return view($this->folder . 'index', $viewdata);
+        return response()->json($viewdata);
     }
 
     /**
@@ -40,6 +37,6 @@ class BackendCommentController extends Controller
 
         $comment->forceDelete();
 
-        return redirect()->route('backend_comment.destroy');
+        return $comment;
     }
 }

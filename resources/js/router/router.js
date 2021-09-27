@@ -195,7 +195,10 @@ const routes = [
                 name: 'BackendUsersEdit',
                 component: BackendUsersEdit
             },
-        ]
+        ],
+        meta: {
+            requiresAdminAuth: true
+        }
     }
 ];
 
@@ -203,5 +206,20 @@ const router = new VueRouter({
     mode: "history",
     routes
 });
+
+router.beforeEach((to, from, next) => {
+    const user = this.$store.state.user;
+    if (to.matched.some(record => record.meta.requiresAdminAuth) && lodash.isEmpty(user)) {
+        next({ name: 'BackendLogin' });
+    } else if (!lodash.isEmpty(user)) {
+        user.roles.forEach(role => {
+            if (role.name == 'admin') {
+                next({ name: 'BackendHome' });
+            }
+        });
+    } else {
+        next();
+    }
+})
 
 export default router;

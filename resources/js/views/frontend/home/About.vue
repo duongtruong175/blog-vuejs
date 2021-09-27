@@ -3,7 +3,3 @@
         <p class="text-2xl">{{ $t('This is about page') }}</p>
     </div>
 </template>
-
-<script>
-export default {};
-</script>

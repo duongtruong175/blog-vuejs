@@ -12,7 +12,11 @@
                 <span class="text-sm pl-1 text-white">{{ $t('Create New') }}</span>
             </router-link>
         </div>
-        <div class="shadow mx-0">
+        <!-- Loading component -->
+        <div v-if="isLoading" class="relative w-full h-96">
+            <loading :active.sync="isLoading" :is-full-page="false" :height="40" :width="40" :color="'#007BFF'" :loader="'dots'"></loading>
+        </div>
+        <div v-if="!isLoading" class="shadow mx-0">
             <div class="py-8">
                 <div class="container px-4 mx-auto">
                     <!-- Paginate -->
@@ -43,31 +47,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(article) in articles" :key="article.id">
+                                <tr v-for="(article, index) in articles" :key="index">
                                     <td class="border px-2 py-2">{{ article.id }}</td>
                                     <td class="border px-2 py-2">{{ article.user.name }}</td>
                                     <td class="border px-2 py-2">
-                                        <img width="100" height="100" src="" :alt="article.title">
+                                        <img width="100" height="100" :src="article.thumb_image_url" :alt="article.title">
                                     </td>
                                     <td class="border px-2 py-2">{{ article.title }}</td>
                                     <td class="border px-2 py-2">
                                         {{ article.content.substr(0, 300) + ' ...' }}
                                     </td>
-                                    <td class="border px-2 py-2">{{ article.created_at }}</td>
-                                    <td class="border px-2 py-2">{{ article.updated_at }}</td>
+                                    <td class="border px-2 py-2">{{ formatDateTime(article.created_at) }}</td>
+                                    <td class="border px-2 py-2">{{ formatDateTime(article.updated_at) }}</td>
                                     <td class="border px-2 py-2">
-                                        <div class="flex justify-center items-center" v-bind:class="checkOwnArticle(article) ? '' : 'pointer-events-none'">
-                                            <div class="inline-block mx-1 p-1 rounded" v-bind:class="checkOwnArticle(article) ? 'bg-green-500 hover:bg-green-800' : 'bg-gray-300'">
+                                        <div class="flex justify-center items-center">
+                                            <div class="inline-block mx-1 p-1 rounded bg-green-500 hover:bg-green-800">
                                                 <router-link class="flex items-center" :to="{ name: 'BackendArticlesEdit', params: { id: article.id } }">
                                                     <span class="inline-block">
                                                         <edit-icon class="h-4 w-4 text-white"></edit-icon>
                                                     </span>
                                                 </router-link>
                                             </div>
-                                            <div class="inline-block mx-1 p-1 rounded" v-bind:class="checkOwnArticle(article) ? 'bg-red-500 hover:bg-red-800' : 'bg-gray-300'">
-                                                <form action="#" method="DELETE">
-                                                    <!-- @csrf -->
-                                                    <button class="flex items-center confirmation-delete" type="submit">
+                                            <div class="inline-block mx-1 p-1 rounded bg-red-500 hover:bg-red-800">
+                                                <form @submit.prevent="deleteArticle(article.id, index)">
+                                                    <button class="flex items-center" type="submit">
                                                         <span class="inline-block">
                                                             <delete-icon class="h-4 w-4 text-white"></delete-icon>
                                                         </span>
@@ -77,9 +80,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <p v-if="Object.keys(articles).length === 0" class="text-lg text-red-500 mb-4">
+                                <tr v-if="typeof articles === 'undefined' || articles.length === 0" class="text-lg text-red-500 mb-4">
                                     {{ $t('No data yet') }}
-                                </p>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -100,23 +103,41 @@ import DeleteIcon from "../../../components/DeleteIcon.vue";
 import EditIcon from "../../../components/EditIcon.vue";
 
 export default {
-    data() {
-        return {
-            paginateOptions: [5, 10, 20, 50],
-            articles: {},
-            own_articles: {},
-        };
-    },
     components: {
         AddIcon,
         DeleteIcon,
         EditIcon,
     },
+    data() {
+        return {
+            paginateOptions: [5, 10, 20, 50],
+            articles: [],
+            isLoading: true,
+        };
+    },
+    async created() {
+        this.isLoading = true;
+        const url = "admin/articles";
+        const res = await this.callApi("get", url);
+        if (res.status === 200) {
+            this.articles = res.data.articles.data;
+            this.isLoading = false;
+        } else {
+            alert("Get data error. Please reload page !");
+        }
+    },
     methods: {
-        checkOwnArticle(article) {
-            return true;
+        async deleteArticle(article_id, index) {
+            if (confirm("Are you sure delete it and its relationships?")) {
+                const url = "admin/articles/" + article_id;
+                const res = await this.callApi("delete", url);
+                if (res.status === 200) {
+                    this.articles.splice(index, 1);
+                } else {
+                    alert("Delete data error. Please try again !");
+                }
+            }
         },
     },
-    created() {},
 };
 </script>

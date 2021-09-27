@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class BackendRoleController extends Controller
 {
-    // Variable to the directory contains a view
-    protected $folder = 'backend.role.';
-    
     /**
      * Display a listing of the resource.
      *
@@ -26,18 +23,7 @@ class BackendRoleController extends Controller
             'roles' => $roles
         ];
 
-        return view($this->folder . 'index', $viewdata);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // redict to create new form
-        return view($this->folder . 'create');
+        return response()->json($viewdata);
     }
 
     /**
@@ -53,18 +39,7 @@ class BackendRoleController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('backend_role.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $role;
     }
 
     /**
@@ -82,7 +57,7 @@ class BackendRoleController extends Controller
             'role' => $role
         ];
 
-        return view($this->folder . 'edit', $viewdata);
+        return response()->json($viewdata);
     }
 
     /**
@@ -100,7 +75,7 @@ class BackendRoleController extends Controller
 
         $role->save();
 
-        return redirect()->route('backend_role.index');
+        return $role;
     }
 
     /**
@@ -113,11 +88,11 @@ class BackendRoleController extends Controller
     {
         //
         $role = Role::findOrFail($id);
-        
+
         // Detach all relationships
         $role->users()->detach();
         $role->forceDelete();
 
-        return redirect()->route('backend_role.index');
+        return $role;
     }
 }
