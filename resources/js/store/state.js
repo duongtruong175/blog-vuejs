@@ -1,6 +1,6 @@
-//const LOCAL_STORAGE_KEY = "blog";
 const state = {
-    user: {}
+    user: JSON.parse(localStorage.getItem("userAuth")) || {},
+    locale: "en"
 };
 
 export default state;

@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/store'
+import lodash from 'lodash';
+
+// error
+import Forbidden from '../layouts/Forbidden.vue'
 
 // user page
 import AppLayout from '../layouts/AppLayout.vue'
@@ -39,6 +44,11 @@ import BackendUsersEdit from '../views/backend/user/BackendUsersEdit.vue'
 Vue.use(VueRouter)
 
 const routes = [
+    {
+        path: '/403',
+        name: 'Forbidden',
+        component: Forbidden
+    },
     {
         path: '/',
         component: AppLayout,
@@ -208,15 +218,31 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const user = this.$store.state.user;
-    if (to.matched.some(record => record.meta.requiresAdminAuth) && lodash.isEmpty(user)) {
-        next({ name: 'BackendLogin' });
-    } else if (!lodash.isEmpty(user)) {
+    const user = store.getters.getUserAuth;
+    let isAdmin = false;
+    if (!lodash.isEmpty(user)) {
         user.roles.forEach(role => {
-            if (role.name == 'admin') {
-                next({ name: 'BackendHome' });
+            if (role.name === 'admin') {
+                isAdmin = true;
             }
         });
+        if (to.name == 'Login' || to.name == 'Register') {
+            next({ name: 'Home' });
+        }
+        if (to.name == 'BackendLogin' && isAdmin) {
+            next({ name: 'BackendHome' });
+        }
+    }
+    if (to.matched.some(record => record.meta.requiresAdminAuth)) {
+        if (lodash.isEmpty(user)) {
+            next({ name: 'BackendLogin' });
+        } else {
+            if (isAdmin) {
+                next();
+            } else {
+                next({ name: 'Forbidden' });
+            }
+        }
     } else {
         next();
     }

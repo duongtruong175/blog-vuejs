@@ -233,9 +233,9 @@ export default {
     },
     data() {
         return {
-            locale: "en",
+            locale: this.$store.getters.getUserAuth,
             showingNavigationDropdown: false,
-            user: this.$store.state.user,
+            user: this.$store.getters.getLocale,
         };
     },
 };

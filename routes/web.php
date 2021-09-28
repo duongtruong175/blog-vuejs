@@ -49,5 +49,6 @@ require __DIR__ . '/frontend.php';
 require __DIR__ . '/backend.php';
 
 // Route change Language
-Route::get('/locale/{locale}', [LocalizationController::class, 'changeLocale'])
-    ->name('locale');
+Route::post('api/v1/locale', [LocalizationController::class, 'changeLocale']);
+Route::get('api/v1/getLocale', [LocalizationController::class, 'getLocale']);
+Route::get('api/v1/getUserAuth', [LocalizationController::class, 'getUserAuth']);

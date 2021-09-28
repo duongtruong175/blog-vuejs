@@ -85,7 +85,7 @@ export default {
             const url = "admin/login";
             const res = await this.callApi("post", url, this.form);
             if (res.status === 200) {
-                this.$store.state.user = res.data.user;
+                await this.$store.dispatch("loadUser");
                 this.$router.push({ name: "BackendHome" });
             } else if (res.status === 422) {
                 for (let i in res.data.errors) {

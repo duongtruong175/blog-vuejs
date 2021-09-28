@@ -23,9 +23,8 @@ use Illuminate\Support\Facades\Route;
 // Authentication
 Route::post('api/v1/admin/login', [BackendAuthenticationController::class, 'login'])
     ->name('backend_auth.login');
-// 'middleware' => 'admin', 
 
-Route::group(['prefix' => 'api/v1/admin'], function () {
+Route::group(['middleware' => 'admin', 'prefix' => 'api/v1/admin'], function () {
     // Logout
     Route::post('/logout', [BackendAuthenticationController::class, 'logout'])
         ->name('backend_auth.logout');

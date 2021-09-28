@@ -92,7 +92,7 @@
                         </ul>
                         <div class="pt-6">
                             <h3 class="mb-2 text-xs uppercase text-gray-500 font-medium">{{ $t('Functions') }}</h3>
-                            <form>
+                            <form @submit.prevent="logout">
                                 <button class="w-full" type="submit">
                                     <a class="flex items-center pl-3 py-3 pr-2 text-sm font-medium text-gray-500 hover:bg-indigo-50 rounded">
                                         <span class="inline-block mr-4">
@@ -274,7 +274,7 @@
                             <div class="hidden lg:block">
                                 <div class="flex items-center">
                                     <div class="mr-3">
-                                        <p class="text-base font-medium">{{ user.name }}</p>
+                                        <p v-if="user.id" class="text-base font-medium">{{ user.name }}</p>
                                     </div>
                                     <div class="mr-2">
                                         <img class="w-10 h-10 rounded-full object-cover object-right" src="http://trichdanhay.vn/wp-content/uploads/2020/09/nhung-cau-noi-hay-cua-huan-hoa-hong.png" alt="">
@@ -346,10 +346,24 @@ export default {
     },
     data() {
         return {
-            locale: "en",
+            locale: this.$store.getters.getLocale,
             showingNavigation: false,
-            user: this.$store.state.user,
+            user: this.$store.getters.getUserAuth,
         };
+    },
+    methods: {
+        async logout() {
+            const url = "admin/logout";
+            const res = await this.callApi("post", url);
+            if (res.status === 200) {
+                const temp = {};
+                this.$store.commit("updateUserAuth", temp);
+                localStorage.setItem("userAuth", JSON.stringify(temp));
+                this.$router.push({ name: "BackendLogin" });
+            } else {
+                alert("Logout error. Please try again !");
+            }
+        },
     },
 };
 </script>
