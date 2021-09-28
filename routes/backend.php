@@ -5,7 +5,6 @@ use App\Http\Controllers\Backend\BackendAuthenticationController;
 use App\Http\Controllers\Backend\BackendCategoryController;
 use App\Http\Controllers\Backend\BackendCommentController;
 use App\Http\Controllers\Backend\BackendDashboardController;
-use App\Http\Controllers\Backend\BackendHomeController;
 use App\Http\Controllers\Backend\BackendRoleController;
 use App\Http\Controllers\Backend\BackendTagController;
 use App\Http\Controllers\Backend\BackendUserController;
@@ -21,9 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Authentication
-Route::post('api/v1/admin/login', [BackendAuthenticationController::class, 'login'])
+Route::get('/admin/login', [BackendAuthenticationController::class, 'index'])
+    ->name('backend_auth.index');
+Route::post('/admin/login', [BackendAuthenticationController::class, 'login'])
     ->name('backend_auth.login');
 
+// router to vuejs
+Route::get('/admin/{slug?}', function () {
+    return view('app');
+})->middleware('admin')->where('slug', '^.*$');
+
+// router api
 Route::group(['middleware' => 'admin', 'prefix' => 'api/v1/admin'], function () {
     // Logout
     Route::post('/logout', [BackendAuthenticationController::class, 'logout'])

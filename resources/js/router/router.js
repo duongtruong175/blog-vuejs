@@ -1,27 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store/store'
-import lodash from 'lodash';
-
-// error
-import Forbidden from '../layouts/Forbidden.vue'
 
 // user page
 import AppLayout from '../layouts/AppLayout.vue'
 import Home from '../views/frontend/home/Home.vue'
-import Login from '../views/frontend/auth/Login.vue'
-import Register from '../views/frontend/auth/Register.vue'
 import About from '../views/frontend/home/About.vue'
 import ArticlesIndex from '../views/frontend/article/ArticlesIndex.vue'
 import ArticlesShow from '../views/frontend/article/ArticlesShow.vue'
-import ForgotPassword from '../views/frontend/auth/ForgotPassword.vue'
-import ConfirmPassword from '../views/frontend/auth/ConfirmPassword.vue'
-import VerifyEmail from '../views/frontend/auth/VerifyEmail.vue'
-import ResetPassword from '../views/frontend/auth/ResetPassword.vue'
 
 // admin page
 import BackendHome from '../views/backend/home/BackendHome.vue'
-import BackendLogin from '../views/backend/auth/BackendLogin.vue'
 import BackendAppLayout from '../layouts/BackendAppLayout.vue'
 import BackendDashboard from '../views/backend/dashboard/BackendDashboard.vue'
 import BackendArticlesIndex from '../views/backend/article/BackendArticlesIndex.vue'
@@ -45,71 +33,42 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/403',
-        name: 'Forbidden',
-        component: Forbidden
-    },
-    {
         path: '/',
         component: AppLayout,
         children: [
             {
                 path: '',
                 name: 'Home',
-                component: Home
-            },
-            {
-                path: 'login',
-                name: 'Login',
-                component: Login
-            },
-            {
-                path: 'register',
-                name: 'Register',
-                component: Register
+                component: Home,
+                meta: {
+                    title: 'Home'
+                }
             },
             {
                 path: 'about',
                 name: 'About',
-                component: About
+                component: About,
+                meta: {
+                    title: 'About Us'
+                }
             },
             {
                 path: 'articles',
                 name: 'ArticlesIndex',
-                component: ArticlesIndex
+                component: ArticlesIndex,
+                meta: {
+                    title: 'Article list'
+                }
             },
             {
                 path: 'articles/:id',
                 name: 'ArticlesShow',
-                component: ArticlesShow
-            },
-            {
-                path: 'forgot-password',
-                name: 'ForgotPassword',
-                component: ForgotPassword
-            },
-            {
-                path: 'confirm-password',
-                name: 'ConfirmPassword',
-                component: ConfirmPassword
-            },
-            {
-                path: 'verify-email',
-                name: 'VerifyEmail',
-                component: VerifyEmail
-            },
-            {
-                path: 'reset-password',
-                name: 'ResetPassword',
-                component: ResetPassword,
-                props: route => ({ query: route.query.token })
+                component: ArticlesShow,
+                meta: {
+                    title: 'Article detail'
+                }
             },
         ]
-    },
-    {
-        path: '/admin/login',
-        name: 'BackendLogin',
-        component: BackendLogin
     },
     {
         path: '/admin',
@@ -118,97 +77,148 @@ const routes = [
             {
                 path: '',
                 name: 'BackendHome',
-                component: BackendHome
+                component: BackendHome,
+                meta: {
+                    title: 'Home'
+                }
             },
             {
                 path: 'dashboard',
                 name: 'BackendDashboard',
-                component: BackendDashboard
+                component: BackendDashboard,
+                meta: {
+                    title: 'Dashboard'
+                }
             },
             {
                 path: 'articles',
                 name: 'BackendArticlesIndex',
-                component: BackendArticlesIndex
+                component: BackendArticlesIndex,
+                meta: {
+                    title: 'Article list'
+                }
             },
             {
                 path: 'articles/create',
                 name: 'BackendArticlesCreate',
-                component: BackendArticlesCreate
+                component: BackendArticlesCreate,
+                meta: {
+                    title: 'Add article'
+                }
             },
             {
                 path: 'articles/:id/edit',
                 name: 'BackendArticlesEdit',
-                component: BackendArticlesEdit
+                component: BackendArticlesEdit,
+                meta: {
+                    title: 'Edit article'
+                }
             },
             {
                 path: 'categories',
                 name: 'BackendCategoriesIndex',
-                component: BackendCategoriesIndex
+                component: BackendCategoriesIndex,
+                meta: {
+                    title: 'Category list'
+                }
             },
             {
                 path: 'categories/create',
                 name: 'BackendCategoriesCreate',
-                component: BackendCategoriesCreate
+                component: BackendCategoriesCreate,
+                meta: {
+                    title: 'Add category'
+                }
             },
             {
                 path: 'categories/:id/edit',
                 name: 'BackendCategoriesEdit',
-                component: BackendCategoriesEdit
+                component: BackendCategoriesEdit,
+                meta: {
+                    title: 'Edit category'
+                }
             },
             {
                 path: 'comments',
                 name: 'BackendCommentsIndex',
-                component: BackendCommentsIndex
+                component: BackendCommentsIndex,
+                meta: {
+                    title: 'Comment list'
+                }
             },
             {
                 path: 'roles',
                 name: 'BackendRolesIndex',
-                component: BackendRolesIndex
+                component: BackendRolesIndex,
+                meta: {
+                    title: 'Role list'
+                }
             },
             {
                 path: 'roles/create',
                 name: 'BackendRolesCreate',
-                component: BackendRolesCreate
+                component: BackendRolesCreate,
+                meta: {
+                    title: 'Add role'
+                }
             },
             {
                 path: 'roles/:id/edit',
                 name: 'BackendRolesEdit',
-                component: BackendRolesEdit
+                component: BackendRolesEdit,
+                meta: {
+                    title: 'Edit role'
+                }
             },
             {
                 path: 'tags',
                 name: 'BackendTagsIndex',
-                component: BackendTagsIndex
+                component: BackendTagsIndex,
+                meta: {
+                    title: 'Tag list'
+                }
             },
             {
                 path: 'tags/create',
                 name: 'BackendTagsCreate',
-                component: BackendTagsCreate
+                component: BackendTagsCreate,
+                meta: {
+                    title: 'Add tag'
+                }
             },
             {
                 path: 'tags/:id/edit',
                 name: 'BackendTagsEdit',
-                component: BackendTagsEdit
+                component: BackendTagsEdit,
+                meta: {
+                    title: 'Edit tag'
+                }
             },
             {
                 path: 'users',
                 name: 'BackendUsersIndex',
-                component: BackendUsersIndex
+                component: BackendUsersIndex,
+                meta: {
+                    title: 'User list'
+                }
             },
             {
                 path: 'users/create',
                 name: 'BackendUsersCreate',
-                component: BackendUsersCreate
+                component: BackendUsersCreate,
+                meta: {
+                    title: 'Add user'
+                }
             },
             {
                 path: 'users/:id/edit',
                 name: 'BackendUsersEdit',
-                component: BackendUsersEdit
+                component: BackendUsersEdit,
+                meta: {
+                    title: 'Edit user'
+                }
             },
         ],
-        meta: {
-            requiresAdminAuth: true
-        }
     }
 ];
 
@@ -216,36 +226,5 @@ const router = new VueRouter({
     mode: "history",
     routes
 });
-
-router.beforeEach((to, from, next) => {
-    const user = store.getters.getUserAuth;
-    let isAdmin = false;
-    if (!lodash.isEmpty(user)) {
-        user.roles.forEach(role => {
-            if (role.name === 'admin') {
-                isAdmin = true;
-            }
-        });
-        if (to.name == 'Login' || to.name == 'Register') {
-            next({ name: 'Home' });
-        }
-        if (to.name == 'BackendLogin' && isAdmin) {
-            next({ name: 'BackendHome' });
-        }
-    }
-    if (to.matched.some(record => record.meta.requiresAdminAuth)) {
-        if (lodash.isEmpty(user)) {
-            next({ name: 'BackendLogin' });
-        } else {
-            if (isAdmin) {
-                next();
-            } else {
-                next({ name: 'Forbidden' });
-            }
-        }
-    } else {
-        next();
-    }
-})
 
 export default router;

@@ -15,9 +15,8 @@ class LocalizationController extends Controller
     /**
      * Function change locale when route request
      */
-    public function changeLocale(Request $request)
+    public function changeLocale(Request $request, $locale)
     {
-        $locale = $request->locale;
         if (in_array($locale, $this->localeActive)) {
             $request->session()->put('locale', $locale);
             return redirect()->back();
@@ -41,10 +40,15 @@ class LocalizationController extends Controller
      */
     public function getUserAuth()
     {
-        $user = User::find(Auth::user())->first();
-        if (!empty($user)) {
+        if (Auth::check()) {
+            $user = User::find(Auth::user())->first();
             return response()->json([
                 'user' => $user->load(['roles'])
+            ], 200);
+        } else {
+            $user = (object)[];
+            return response()->json([
+                'user' => $user
             ], 200);
         }
     }

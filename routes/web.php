@@ -18,30 +18,6 @@
 use App\Http\Controllers\Frontend\LocalizationController;
 use Illuminate\Support\Facades\Route;
 
-//router to vuejs
-Route::get('/', function () {
-    return view('app');
-});
-Route::get('/about', function () {
-    return view('app');
-});
-Route::get('/login', function () {
-    return view('app');
-});
-Route::get('/register', function () {
-    return view('app');
-});
-Route::get('/articles/{slug?}', function () {
-    return view('app');
-})->where('slug', '^.*$');
-Route::get('/admin/{slug?}', function () {
-    return view('app');
-})->where('slug', '^.*$');
-
-// Route::get('/{slug?}', function () {
-//     return view('app');
-// })->where('slug', '^.*$');
-
 // Frontend
 require __DIR__ . '/frontend.php';
 
@@ -49,6 +25,6 @@ require __DIR__ . '/frontend.php';
 require __DIR__ . '/backend.php';
 
 // Route change Language
-Route::post('api/v1/locale', [LocalizationController::class, 'changeLocale']);
+Route::get('api/v1/locale/{locale}', [LocalizationController::class, 'changeLocale']);
 Route::get('api/v1/getLocale', [LocalizationController::class, 'getLocale']);
 Route::get('api/v1/getUserAuth', [LocalizationController::class, 'getUserAuth']);

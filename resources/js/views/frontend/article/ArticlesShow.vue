@@ -89,10 +89,10 @@
                                     </div>
                                     <div v-else class="w-full">
                                         <div class="border rounded p-2 flex">
-                                            <router-link class="mx-auto text-center flex" :to="{ name: 'Login' }">
+                                            <a class="mx-auto text-center flex" href="'/login'">
                                                 <login-icon class="w-6 h-6 text-gray-500"></login-icon>
                                                 <span class="text-sm ml-2">{{ $t('Login to comment') }}!</span>
-                                            </router-link>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -159,9 +159,7 @@ export default {
         return {
             article: {},
             comments: [],
-            user: {
-                id: 2,
-            },
+            user: this.$store.getters.getUserAuth,
             errors: {},
             form: {
                 article_id: Number,
@@ -180,15 +178,14 @@ export default {
             this.article = res.data.article;
             this.comments = res.data.comments;
             this.isLoading = false;
-            // init data form
-            this.form.article_id = this.article.id;
-            this.form.user_id = this.user.id;
         } else {
             alert("Get data error. Please reload page !");
         }
     },
     methods: {
         async addComment() {
+            this.form.article_id = this.article.id;
+            this.form.user_id = this.user.id;
             this.errors = {};
             this.isFormLoading = true;
             const res = await this.callApi("post", "comments", this.form);

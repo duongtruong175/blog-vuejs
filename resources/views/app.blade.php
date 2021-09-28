@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="api-base-url" content="{{ url('/') }}" />
 
-        <title>Blog</title>
+        <title>{{ __('Blog') }}</title>
 
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}">
@@ -35,8 +35,5 @@
         <div id="app">
             <!-- built files will be auto injected -->
         </div>
-        
-        <!-- Scripts -->
-        <script src="{{ asset('js/jquery-3.6.0.js') }}"></script>
     </body>
 </html>

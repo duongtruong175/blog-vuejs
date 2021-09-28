@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Hash;
 class BackendAuthenticationController extends Controller
 {
     /**
+     * Display view contains login for admin
+     */
+    public function index()
+    {
+        //
+        return view('backend.auth.login');
+    }
+
+    /**
      * Handle an incoming authentication request.
      *
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
@@ -34,22 +43,16 @@ class BackendAuthenticationController extends Controller
             ])
             ->first();
 
-        if (!empty($permission) && Hash::check($password, $permission->password)) {
+        if ($permission && Hash::check($password, $permission->password)) {
             // redict login success, add session
             Auth::attempt(['email' => $email, 'password' => $password], $remember);
             $request->session()->regenerate();
-            $user = User::find(Auth::user());
-            return response()->json([
-                'user' => $user->load(['roles'])
-            ]);
+            return redirect('/admin');
         }
 
-        return response()->json([
-            'errors' => [
-                'email' => ['The provided credentials do not match our admin records.']
-            ],
-            'message' => 'The given data was invalid.'
-        ], 422);
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our admin records.',
+        ])->withInput($request->all());
     }
 
     /**

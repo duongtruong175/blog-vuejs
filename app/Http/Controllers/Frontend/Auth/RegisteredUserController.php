@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -63,6 +63,6 @@ class RegisteredUserController extends Controller
         ];
         Mail::to("projectt218@gmail.com")->send(new RegisterMail($content));
 
-        return $user;
+        return redirect(RouteServiceProvider::HOME);
     }
 }

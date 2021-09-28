@@ -13,9 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Auth
+// Authentication
 require __DIR__ . '/auth.php';
 
+// router to vuejs
+Route::get('/', function () {
+    return view('app');
+});
+Route::get('/about', function () {
+    return view('app');
+});
+Route::get('/articles/{slug?}', function () {
+    return view('app');
+})->where('slug', '^.*$');
+
+// router api
 // Article
 Route::prefix('api/v1/articles')->group(function () {
     Route::get('/', [ArticleController::class, 'index'])

@@ -47,24 +47,24 @@
                                     <!-- Dropdown -->
                                     <template v-slot:content>
                                         <div class="mx-1">
-                                            <dropdown-link :href="'/locale/en'">
+                                            <a href="/api/v1/locale/en" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                                 <div class="flex items-center">
                                                     <en-flag class="w-6 h-4"></en-flag>
                                                     <span class="text-sm pl-2">
                                                         English
                                                     </span>
                                                 </div>
-                                            </dropdown-link>
+                                            </a>
                                         </div>
                                         <div class="mx-1">
-                                            <dropdown-link :href="'/locale/vi'">
+                                            <a href="/api/v1/locale/vi" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                                 <div class="flex items-center">
                                                     <vi-flag class="w-6 h-4"></vi-flag>
                                                     <span class="text-sm pl-2">
                                                         Tiếng Việt
                                                     </span>
                                                 </div>
-                                            </dropdown-link>
+                                            </a>
                                         </div>
                                     </template>
                                 </dropdown>
@@ -88,17 +88,16 @@
 
                                 <template v-slot:content>
                                     <!-- Authentication -->
-                                    <form method="POST" action="/logout">
-                                        <dropdown-link @click="event.preventDefault();
-                                                                this.closest('form').submit();">
+                                    <form @submit.prevent="logout">
+                                        <button class="w-full text-left block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                             {{ $t('Log Out') }}
-                                        </dropdown-link>
+                                        </button>
                                     </form>
                                 </template>
                             </dropdown>
                             <div v-else class="px-6 py-4 flex">
-                                <router-link :to="{ name: 'Login' }" class="flex items-center text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Log In') }}</router-link>
-                                <router-link :to="{ name: 'Register' }" class="flex items-center ml-4 text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Register') }}</router-link>
+                                <a href="/login" class="flex items-center text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Log In') }}</a>
+                                <a href="/register" class="flex items-center ml-4 text-sm text-white bg-green-500 hover:bg-green-800 font-medium px-4 py-2 rounded-2xl">{{ $t('Register') }}</a>
                             </div>
                         </div>
 
@@ -143,24 +142,24 @@
                             <!-- Dropdown -->
                             <template v-slot:content>
                                 <div class="mx-1">
-                                    <dropdown-link :href="'/locale/en'">
+                                    <a href="/api/v1/locale/en" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                         <div class="flex items-center">
                                             <en-flag class="w-6 h-4"></en-flag>
                                             <span class="text-sm pl-2">
                                                 English
                                             </span>
                                         </div>
-                                    </dropdown-link>
+                                    </a>
                                 </div>
                                 <div class="mx-1">
-                                    <dropdown-link :href="'/locale/vi'">
+                                    <a href="/api/v1/locale/vi" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                         <div class="flex items-center">
                                             <vi-flag class="w-6 h-4"></vi-flag>
                                             <span class="text-sm pl-2">
                                                 Tiếng Việt
                                             </span>
                                         </div>
-                                    </dropdown-link>
+                                    </a>
                                 </div>
                             </template>
                         </dropdown>
@@ -175,24 +174,23 @@
 
                         <div class="mt-3 space-y-1">
                             <!-- Authentication -->
-                            <form method="POST" action="/logout">
-                                <responsive-nav-link @click="event.preventDefault();
-                                                        this.closest('form').submit();">
+                            <form @submit.prevent="logout">
+                                <button type="submit" class="w-full text-left block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
                                     {{ $t('Log Out') }}
-                                </responsive-nav-link>
+                                </button>
                             </form>
                         </div>
                     </div>
                     <div v-else class="pt-2 pb-3 border-t border-gray-200">
                         <div class="space-y-1">
-                            <responsive-nav-link :href="{ name: 'Login' }" :active="$route.name == 'Login'">
+                            <a href="/login" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
                                 {{ $t('Log In') }}
-                            </responsive-nav-link>
+                            </a>
                         </div>
                         <div class="mt-3 space-y-1">
-                            <responsive-nav-link :href="{ name: 'Register' }" :active="$route.name == 'Register'">
+                            <a href="/register" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
                                 {{ $t('Register') }}
-                            </responsive-nav-link>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -233,10 +231,28 @@ export default {
     },
     data() {
         return {
-            locale: this.$store.getters.getUserAuth,
+            locale: this.$store.getters.getLocale,
             showingNavigationDropdown: false,
-            user: this.$store.getters.getLocale,
+            user: this.$store.getters.getUserAuth,
         };
+    },
+    async created() {
+        await this.$store.dispatch("loadUser");
+        this.user = this.$store.getters.getUserAuth;
+    },
+    methods: {
+        async logout() {
+            const url = "/logout";
+            const res = await this.callApi("post", url);
+            if (res.status === 200) {
+                this.user = {};
+                this.$store.commit("updateUserAuth", this.user);
+                localStorage.setItem("userAuth", JSON.stringify(this.user));
+                window.location.href = "/";
+            } else {
+                alert("Logout error. Please try again !");
+            }
+        },
     },
 };
 </script>

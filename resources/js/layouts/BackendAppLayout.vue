@@ -356,10 +356,10 @@ export default {
             const url = "admin/logout";
             const res = await this.callApi("post", url);
             if (res.status === 200) {
-                const temp = {};
-                this.$store.commit("updateUserAuth", temp);
-                localStorage.setItem("userAuth", JSON.stringify(temp));
-                this.$router.push({ name: "BackendLogin" });
+                this.user = {};
+                this.$store.commit("updateUserAuth", this.user);
+                localStorage.setItem("userAuth", JSON.stringify(this.user));
+                window.location.href = "/admin/login";
             } else {
                 alert("Logout error. Please try again !");
             }
