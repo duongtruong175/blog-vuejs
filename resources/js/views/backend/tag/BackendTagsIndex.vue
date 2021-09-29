@@ -113,18 +113,26 @@ export default {
             this.tags = res.data.tags.data;
             this.isLoading = false;
         } else {
-            alert("Get data error. Please reload page !");
+            alert(this.$i18n.t("Get data error. Please reload page !"));
         }
     },
     methods: {
         async deleteTag(tag_id, index) {
-            if (confirm("Are you sure delete it and its relationships?")) {
+            if (
+                confirm(
+                    this.$i18n.t(
+                        "Are you sure delete it and its relationships?"
+                    )
+                )
+            ) {
                 const url = "admin/tags/" + tag_id;
                 const res = await this.callApi("delete", url);
                 if (res.status === 200) {
                     this.tags.splice(index, 1);
                 } else {
-                    alert("Delete data error. Please try again !");
+                    alert(
+                        this.$i18n.t("Delete data error. Please try again !")
+                    );
                 }
             }
         },

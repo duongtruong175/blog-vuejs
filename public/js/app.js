@@ -2364,7 +2364,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   localStorage.setItem("userAuth", JSON.stringify(_this2.user));
                   window.location.href = "/";
                 } else {
-                  alert("Logout error. Please try again !");
+                  alert(_this2.$i18n.t("Logout error. Please try again !"));
                 }
 
               case 5:
@@ -2399,7 +2399,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this3.$i18n.locale = locale;
                 } else {
-                  alert("Change locale error. Please try again !");
+                  alert(_this3.$i18n.t("Change locale error. Please try again !"));
                 }
 
               case 6:
@@ -2827,7 +2827,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   localStorage.setItem("userAuth", JSON.stringify(_this.user));
                   window.location.href = "/admin/login";
                 } else {
-                  alert("Logout error. Please try again !");
+                  alert(_this.$i18n.t("Logout error. Please try again !"));
                 }
 
               case 5:
@@ -2862,7 +2862,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.$i18n.locale = locale;
                 } else {
-                  alert("Change locale error. Please try again !");
+                  alert(_this2.$i18n.t("Change locale error. Please try again !"));
                 }
 
               case 6:
@@ -3009,7 +3009,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.categories = res.data.categories;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -3061,7 +3061,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this2.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -3231,7 +3231,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.form.tags = res.data.tags;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -3283,7 +3283,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this2.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -3459,7 +3459,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.articles = res.data.articles.data;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -3480,7 +3480,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!confirm("Are you sure delete it and its relationships?")) {
+                if (!confirm(_this2.$i18n.t("Are you sure delete it and its relationships?"))) {
                   _context2.next = 6;
                   break;
                 }
@@ -3495,7 +3495,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.articles.splice(index, 1);
                 } else {
-                  alert("Delete data error. Please try again !");
+                  alert(_this2.$i18n.t("Delete data error. Please try again !"));
                 }
 
               case 6:
@@ -3596,7 +3596,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this.isFormLoading = false;
@@ -3710,7 +3710,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.form.id = _this.category.id;
                 _this.form.name = _this.category.name;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -3747,7 +3747,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this2.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -3913,7 +3913,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.categories = res.data.categories.data;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -3949,7 +3949,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.categories.splice(index, 1);
                 } else {
-                  alert("Delete data error. Please try again !");
+                  alert(_this2.$i18n.t("Delete data error. Please try again !"));
                 }
 
               case 6:
@@ -4101,7 +4101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.comments = res.data.comments.data;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -4122,7 +4122,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!confirm("Are you sure delete it and its relationships?")) {
+                if (!confirm(_this2.$i18n.t("Are you sure delete it and its relationships?"))) {
                   _context2.next = 6;
                   break;
                 }
@@ -4137,7 +4137,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.comments.splice(index, 1);
                 } else {
-                  alert("Delete data error. Please try again !");
+                  alert(_this2.$i18n.t("Delete data error. Please try again !"));
                 }
 
               case 6:
@@ -4362,7 +4362,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.total_tags = res.data.total_tags;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -4462,7 +4462,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this.isFormLoading = false;
@@ -4576,7 +4576,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.form.id = _this.role.id;
                 _this.form.name = _this.role.name;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -4613,7 +4613,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this2.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -4779,7 +4779,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.roles = res.data.roles.data;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -4800,7 +4800,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!confirm("Are you sure delete it and its relationships?")) {
+                if (!confirm(_this2.$i18n.t("Are you sure delete it and its relationships?"))) {
                   _context2.next = 6;
                   break;
                 }
@@ -4815,7 +4815,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.roles.splice(index, 1);
                 } else {
-                  alert("Delete data error. Please try again !");
+                  alert(_this2.$i18n.t("Delete data error. Please try again !"));
                 }
 
               case 6:
@@ -4916,7 +4916,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this.isFormLoading = false;
@@ -5030,7 +5030,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.form.id = _this.tag.id;
                 _this.form.name = _this.tag.name;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -5067,7 +5067,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this2.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -5233,7 +5233,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.tags = res.data.tags.data;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -5254,7 +5254,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!confirm("Are you sure delete it and its relationships?")) {
+                if (!confirm(_this2.$i18n.t("Are you sure delete it and its relationships?"))) {
                   _context2.next = 6;
                   break;
                 }
@@ -5269,7 +5269,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.tags.splice(index, 1);
                 } else {
-                  alert("Delete data error. Please try again !");
+                  alert(_this2.$i18n.t("Delete data error. Please try again !"));
                 }
 
               case 6:
@@ -5397,7 +5397,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this.isFormLoading = false;
@@ -5511,7 +5511,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.form.id = _this.user.id;
                 _this.form.name = _this.user.name;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -5548,7 +5548,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this2.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -5720,7 +5720,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.users = res.data.users.data;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -5741,7 +5741,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!confirm("Are you sure delete it and its relationships?")) {
+                if (!confirm(_this2.$i18n.t("Are you sure delete it and its relationships?"))) {
                   _context2.next = 6;
                   break;
                 }
@@ -5756,7 +5756,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.users.splice(index, 1);
                 } else {
-                  alert("Delete data error. Please try again !");
+                  alert(_this2.$i18n.t("Delete data error. Please try again !"));
                 }
 
               case 6:
@@ -5966,7 +5966,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.top_tags = res.data.top_tags;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -6005,7 +6005,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this2.articles = res.data.articles.data;
                 } else {
-                  alert("Get data error. Please reload page !");
+                  alert(_this2.$i18n.t("Get data error. Please reload page !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -6043,7 +6043,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this3.articles = res.data.articles.data;
                 } else {
-                  alert("Get data error. Please reload page !");
+                  alert(_this3.$i18n.t("Get data error. Please reload page !"));
                 }
 
               case 6:
@@ -6079,7 +6079,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res.status === 200) {
                   _this4.articles = res.data.articles.data;
                 } else {
-                  alert("Get data error. Please reload page !");
+                  alert(_this4.$i18n.t("Get data error. Please reload page !"));
                 }
 
               case 6:
@@ -6308,7 +6308,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.comments = res.data.comments;
                 _this.isLoading = false;
               } else {
-                alert("Get data error. Please reload page !");
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
 
             case 6:
@@ -6346,7 +6346,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.status === 422) {
                   _this2.errors = res.data.errors;
                 } else {
-                  alert("Post data error. Please try again !");
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
                 _this2.isFormLoading = false;
@@ -6602,7 +6602,13 @@ __webpack_require__.r(__webpack_exports__);
   "No comments yet": "Chưa có bình luận nào",
   "Login to comment": "Đăng nhập để có thể bình luận",
   "There is no table of contents": "Không có mục lục",
-  "This article was updated at": "Bài viết này được cập nhập lần cuối lúc"
+  "This article was updated at": "Bài viết này được cập nhập lần cuối lúc",
+  "Logout error. Please try again !": "Đăng xuất thất bại. Xin thử lại !",
+  "Change locale error. Please try again !": "Thay đổi ngôn ngữ thất bại. Xin thử lại !",
+  "Post data error. Please try again !": "Gửi dữ liệu thất bại. Xin thử lại !",
+  "Get data error. Please reload page !": "Lấy dữ liệu thất bại. Xin hãy tải tại trang !",
+  "Delete data error. Please try again !": "Xóa dữ liệu thất bại. Xin thử lại !",
+  "Are you sure delete it and its relationships?": "Bạn có chắc chắn muốn xóa tài nguyên ?"
 });
 
 /***/ }),

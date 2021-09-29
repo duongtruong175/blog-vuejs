@@ -161,7 +161,7 @@ export default {
             this.top_tags = res.data.top_tags;
             this.isLoading = false;
         } else {
-            alert("Get data error. Please reload page !");
+            alert(this.$i18n.t("Get data error. Please reload page !"));
         }
     },
     methods: {
@@ -173,7 +173,7 @@ export default {
             if (res.status === 200) {
                 this.articles = res.data.articles.data;
             } else {
-                alert("Get data error. Please reload page !");
+                alert(this.$i18n.t("Get data error. Please reload page !"));
             }
             this.isFormLoading = false;
         },
@@ -184,7 +184,7 @@ export default {
             if (res.status === 200) {
                 this.articles = res.data.articles.data;
             } else {
-                alert("Get data error. Please reload page !");
+                alert(this.$i18n.t("Get data error. Please reload page !"));
             }
         },
         async filterArticlesByTag(tag_id) {
@@ -194,7 +194,7 @@ export default {
             if (res.status === 200) {
                 this.articles = res.data.articles.data;
             } else {
-                alert("Get data error. Please reload page !");
+                alert(this.$i18n.t("Get data error. Please reload page !"));
             }
         },
     },

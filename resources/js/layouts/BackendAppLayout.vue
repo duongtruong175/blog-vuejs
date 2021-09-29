@@ -360,7 +360,7 @@ export default {
                 localStorage.setItem("userAuth", JSON.stringify(this.user));
                 window.location.href = "/admin/login";
             } else {
-                alert("Logout error. Please try again !");
+                alert(this.$i18n.t("Logout error. Please try again !"));
             }
         },
         async changeLocale(locale) {
@@ -370,7 +370,9 @@ export default {
                 if (res.status === 200) {
                     this.$i18n.locale = locale;
                 } else {
-                    alert("Change locale error. Please try again !");
+                    alert(
+                        this.$i18n.t("Change locale error. Please try again !")
+                    );
                 }
             }
         },

@@ -113,7 +113,7 @@ export default {
             this.categories = res.data.categories.data;
             this.isLoading = false;
         } else {
-            alert("Get data error. Please reload page !");
+            alert(this.$i18n.t("Get data error. Please reload page !"));
         }
     },
     methods: {
@@ -124,7 +124,9 @@ export default {
                 if (res.status === 200) {
                     this.categories.splice(index, 1);
                 } else {
-                    alert("Delete data error. Please try again !");
+                    alert(
+                        this.$i18n.t("Delete data error. Please try again !")
+                    );
                 }
             }
         },

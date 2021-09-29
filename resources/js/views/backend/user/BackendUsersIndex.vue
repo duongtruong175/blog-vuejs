@@ -119,18 +119,26 @@ export default {
             this.users = res.data.users.data;
             this.isLoading = false;
         } else {
-            alert("Get data error. Please reload page !");
+            alert(this.$i18n.t("Get data error. Please reload page !"));
         }
     },
     methods: {
         async deleteUser(user_id, index) {
-            if (confirm("Are you sure delete it and its relationships?")) {
+            if (
+                confirm(
+                    this.$i18n.t(
+                        "Are you sure delete it and its relationships?"
+                    )
+                )
+            ) {
                 const url = "admin/users/" + user_id;
                 const res = await this.callApi("delete", url);
                 if (res.status === 200) {
                     this.users.splice(index, 1);
                 } else {
-                    alert("Delete data error. Please try again !");
+                    alert(
+                        this.$i18n.t("Delete data error. Please try again !")
+                    );
                 }
             }
         },

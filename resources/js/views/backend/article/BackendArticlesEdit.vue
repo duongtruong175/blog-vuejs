@@ -117,7 +117,7 @@ export default {
             });
             this.form.tags = res.data.tags;
         } else {
-            alert("Get data error. Please reload page !");
+            alert(this.$i18n.t("Get data error. Please reload page !"));
         }
     },
     methods: {
@@ -144,7 +144,7 @@ export default {
             } else if (res.status === 422) {
                 this.errors = res.data.errors;
             } else {
-                alert("Post data error. Please try again !");
+                alert(this.$i18n.t("Post data error. Please try again !"));
             }
             this.isFormLoading = false;
         },

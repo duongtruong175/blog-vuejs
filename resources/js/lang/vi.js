@@ -121,5 +121,12 @@ export default {
     "No comments yet": "Chưa có bình luận nào",
     "Login to comment": "Đăng nhập để có thể bình luận",
     "There is no table of contents": "Không có mục lục",
-    "This article was updated at": "Bài viết này được cập nhập lần cuối lúc"
+    "This article was updated at": "Bài viết này được cập nhập lần cuối lúc",
+
+    "Logout error. Please try again !": "Đăng xuất thất bại. Xin thử lại !",
+    "Change locale error. Please try again !": "Thay đổi ngôn ngữ thất bại. Xin thử lại !",
+    "Post data error. Please try again !": "Gửi dữ liệu thất bại. Xin thử lại !",
+    "Get data error. Please reload page !": "Lấy dữ liệu thất bại. Xin hãy tải tại trang !",
+    "Delete data error. Please try again !": "Xóa dữ liệu thất bại. Xin thử lại !",
+    "Are you sure delete it and its relationships?": "Bạn có chắc chắn muốn xóa tài nguyên ?",
 };

@@ -170,7 +170,7 @@ export default {
             this.total_tags = res.data.total_tags;
             this.isLoading = false;
         } else {
-            alert("Get data error. Please reload page !");
+            alert(this.$i18n.t("Get data error. Please reload page !"));
         }
     },
 };
