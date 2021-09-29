@@ -6,7 +6,7 @@ import translateVi from "./vi";
 Vue.use(VueI18n);
 
 export default new VueI18n({
-    locale: "en",
+    locale: document.head.querySelector('meta[name="locale"]').content,
     silentTranslationWarn: true,
     messages: {
         en: translateEn,

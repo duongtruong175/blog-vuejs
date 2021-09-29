@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class LocalizationController extends Controller
@@ -25,31 +26,18 @@ class LocalizationController extends Controller
     }
 
     /**
-     *
+     * Function change locale when route request
      */
-    public function getLocale()
+    public function changeLocaleApi(Request $request, $locale)
     {
-        $locale = session('locale', 'en');
-        return response()->json([
-            'locale' => $locale
-        ], 200);
-    }
-
-    /**
-     *
-     */
-    public function getUserAuth()
-    {
-        if (Auth::check()) {
-            $user = User::find(Auth::user())->first();
+        if (in_array($locale, $this->localeActive)) {
+            $request->session()->put('locale', $locale);
             return response()->json([
-                'user' => $user->load(['roles'])
-            ], 200);
-        } else {
-            $user = (object)[];
-            return response()->json([
-                'user' => $user
+                'locale' => $locale
             ], 200);
         }
+        return response()->json([
+            'message' => 'The given data was not valid.'
+        ], 404);
     }
 }

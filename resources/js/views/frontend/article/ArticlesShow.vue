@@ -89,7 +89,7 @@
                                     </div>
                                     <div v-else class="w-full">
                                         <div class="border rounded p-2 flex">
-                                            <a class="mx-auto text-center flex" href="'/login'">
+                                            <a class="mx-auto text-center flex" href="/login">
                                                 <login-icon class="w-6 h-6 text-gray-500"></login-icon>
                                                 <span class="text-sm ml-2">{{ $t('Login to comment') }}!</span>
                                             </a>

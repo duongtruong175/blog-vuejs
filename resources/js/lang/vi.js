@@ -85,6 +85,7 @@ export default {
     "About Us": "Về chúng tôi",
 
     "Welcome to our blog": "Chào mừng đến với trang blog của chúng tôi",
+    "This is about page": "Đây là trang about",
 
     "Forgot your password?": "Quên mật khẩu?",
 

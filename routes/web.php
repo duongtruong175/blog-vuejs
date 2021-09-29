@@ -15,6 +15,7 @@
 |
 */
 
+use App\Http\Controllers\Frontend\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Frontend\LocalizationController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,6 @@ require __DIR__ . '/frontend.php';
 require __DIR__ . '/backend.php';
 
 // Route change Language
-Route::get('api/v1/locale/{locale}', [LocalizationController::class, 'changeLocale']);
-Route::get('api/v1/getLocale', [LocalizationController::class, 'getLocale']);
-Route::get('api/v1/getUserAuth', [LocalizationController::class, 'getUserAuth']);
+Route::get('locale/{locale}', [LocalizationController::class, 'changeLocale']);
+Route::get('api/v1/locale/{locale}', [LocalizationController::class, 'changeLocaleApi']);
+Route::get('api/v1/getUserAuth', [AuthenticatedSessionController::class, 'getUserAuth']);

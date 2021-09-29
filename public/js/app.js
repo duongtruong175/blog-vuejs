@@ -1991,8 +1991,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["href"]
+  props: ["href", "as"]
 });
 
 /***/ }),
@@ -2310,7 +2313,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      locale: this.$store.getters.getLocale,
       showingNavigationDropdown: false,
       user: this.$store.getters.getUserAuth
     };
@@ -2347,7 +2349,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                url = "/logout";
+                url = "logout";
                 _context2.next = 3;
                 return _this2.callApi("post", url);
 
@@ -2371,6 +2373,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2);
+      }))();
+    },
+    changeLocale: function changeLocale(locale) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var url, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(locale !== _this3.$i18n.locale)) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                url = "locale/" + locale;
+                _context3.next = 4;
+                return _this3.callApi("get", url);
+
+              case 4:
+                res = _context3.sent;
+
+                if (res.status === 200) {
+                  _this3.$i18n.locale = locale;
+                } else {
+                  alert("Change locale error. Please try again !");
+                }
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -2761,7 +2798,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      locale: this.$store.getters.getLocale,
       showingNavigation: false,
       user: this.$store.getters.getUserAuth
     };
@@ -2800,6 +2836,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    changeLocale: function changeLocale(locale) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var url, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(locale !== _this2.$i18n.locale)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                url = "locale/" + locale;
+                _context2.next = 4;
+                return _this2.callApi("get", url);
+
+              case 4:
+                res = _context2.sent;
+
+                if (res.status === 200) {
+                  _this2.$i18n.locale = locale;
+                } else {
+                  alert("Change locale error. Please try again !");
+                }
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   }
@@ -6405,7 +6476,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default({
-  locale: "en",
+  locale: document.head.querySelector('meta[name="locale"]').content,
   silentTranslationWarn: true,
   messages: {
     en: _en__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -6502,6 +6573,7 @@ __webpack_require__.r(__webpack_exports__);
   "Article title": "Tiêu đề bài viết",
   "About Us": "Về chúng tôi",
   "Welcome to our blog": "Chào mừng đến với trang blog của chúng tôi",
+  "This is about page": "Đây là trang about",
   "Forgot your password?": "Quên mật khẩu?",
   "Register": "Đăng ký",
   "Already registered?": "Đã đăng ký?",
@@ -6922,36 +6994,6 @@ var actions = {
         }
       }, _callee);
     }))();
-  },
-  loadLocale: function loadLocale(_ref2) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      var commit, url, res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              commit = _ref2.commit;
-              url = "/getLocale";
-              _context2.next = 4;
-              return axios({
-                method: "get",
-                url: url
-              });
-
-            case 4:
-              res = _context2.sent;
-
-              if (res.status === 200) {
-                commit("updateLocale", res.data.locale);
-              }
-
-            case 6:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }))();
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions);
@@ -6972,9 +7014,6 @@ __webpack_require__.r(__webpack_exports__);
 var getters = {
   getUserAuth: function getUserAuth(state) {
     return state.user;
-  },
-  getLocale: function getLocale(state) {
-    return state.locale;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getters);
@@ -6995,9 +7034,6 @@ __webpack_require__.r(__webpack_exports__);
 var mutations = {
   updateUserAuth: function updateUserAuth(state, newUser) {
     state.user = newUser;
-  },
-  updateLocale: function updateLocale(state, newLocale) {
-    state.locale = newLocale;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mutations);
@@ -7016,8 +7052,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var state = {
-  user: JSON.parse(localStorage.getItem("userAuth")) || {},
-  locale: "en"
+  user: JSON.parse(localStorage.getItem("userAuth")) || {}
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (state);
 
@@ -31597,16 +31632,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "router-link",
-    {
-      staticClass:
-        "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
-      attrs: { to: _vm.href }
-    },
-    [_vm._t("default")],
-    2
-  )
+  return _vm.as == "a"
+    ? _c(
+        "a",
+        {
+          staticClass:
+            "cursor-pointer block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
+          attrs: { href: _vm.href }
+        },
+        [_vm._t("default")],
+        2
+      )
+    : _c(
+        "router-link",
+        {
+          staticClass:
+            "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
+          attrs: { to: _vm.href }
+        },
+        [_vm._t("default")],
+        2
+      )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -32363,11 +32409,11 @@ var render = function() {
                                   "p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out"
                               },
                               [
-                                _vm.locale === "en"
+                                _vm.$i18n.locale === "en"
                                   ? _c("en-flag", { staticClass: "w-6 h-4" })
                                   : _vm._e(),
                                 _vm._v(" "),
-                                _vm.locale === "vi"
+                                _vm.$i18n.locale === "vi"
                                   ? _c("vi-flag", { staticClass: "w-6 h-4" })
                                   : _vm._e(),
                                 _vm._v(" "),
@@ -32405,67 +32451,87 @@ var render = function() {
                         key: "content",
                         fn: function() {
                           return [
-                            _c("div", { staticClass: "mx-1" }, [
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
-                                  attrs: { href: "/api/v1/locale/en" }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "flex items-center" },
-                                    [
-                                      _c("en-flag", { staticClass: "w-6 h-4" }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-sm pl-2" },
-                                        [
-                                          _vm._v(
-                                            "\n                                                    English\n                                                "
-                                          )
-                                        ]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ]
-                              )
-                            ]),
+                            _c(
+                              "div",
+                              { staticClass: "mx-1" },
+                              [
+                                _c(
+                                  "dropdown-link",
+                                  {
+                                    attrs: { as: "a" },
+                                    nativeOn: {
+                                      click: function($event) {
+                                        return _vm.changeLocale("en")
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "flex items-center" },
+                                      [
+                                        _c("en-flag", {
+                                          staticClass: "w-6 h-4"
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "text-sm pl-2" },
+                                          [
+                                            _vm._v(
+                                              "\n                                                    English\n                                                "
+                                            )
+                                          ]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
                             _vm._v(" "),
-                            _c("div", { staticClass: "mx-1" }, [
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
-                                  attrs: { href: "/api/v1/locale/vi" }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "flex items-center" },
-                                    [
-                                      _c("vi-flag", { staticClass: "w-6 h-4" }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-sm pl-2" },
-                                        [
-                                          _vm._v(
-                                            "\n                                                    Tiếng Việt\n                                                "
-                                          )
-                                        ]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ]
-                              )
-                            ])
+                            _c(
+                              "div",
+                              { staticClass: "mx-1" },
+                              [
+                                _c(
+                                  "dropdown-link",
+                                  {
+                                    attrs: { as: "a" },
+                                    nativeOn: {
+                                      click: function($event) {
+                                        return _vm.changeLocale("vi")
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "flex items-center" },
+                                      [
+                                        _c("vi-flag", {
+                                          staticClass: "w-6 h-4"
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "text-sm pl-2" },
+                                          [
+                                            _vm._v(
+                                              "\n                                                    Tiếng Việt\n                                                "
+                                            )
+                                          ]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
                           ]
                         },
                         proxy: true
@@ -32732,11 +32798,11 @@ var render = function() {
                                 "p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out"
                             },
                             [
-                              _vm.locale === "en"
+                              _vm.$i18n.locale === "en"
                                 ? _c("en-flag", { staticClass: "w-6 h-4" })
                                 : _vm._e(),
                               _vm._v(" "),
-                              _vm.locale === "vi"
+                              _vm.$i18n.locale === "vi"
                                 ? _c("vi-flag", { staticClass: "w-6 h-4" })
                                 : _vm._e(),
                               _vm._v(" "),
@@ -32774,67 +32840,83 @@ var render = function() {
                       key: "content",
                       fn: function() {
                         return [
-                          _c("div", { staticClass: "mx-1" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
-                                attrs: { href: "/api/v1/locale/en" }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "flex items-center" },
-                                  [
-                                    _c("en-flag", { staticClass: "w-6 h-4" }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      { staticClass: "text-sm pl-2" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            English\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          ]),
+                          _c(
+                            "div",
+                            { staticClass: "mx-1" },
+                            [
+                              _c(
+                                "dropdown-link",
+                                {
+                                  attrs: { as: "a" },
+                                  nativeOn: {
+                                    click: function($event) {
+                                      return _vm.changeLocale("en")
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "flex items-center" },
+                                    [
+                                      _c("en-flag", { staticClass: "w-6 h-4" }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        { staticClass: "text-sm pl-2" },
+                                        [
+                                          _vm._v(
+                                            "\n                                            English\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "mx-1" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
-                                attrs: { href: "/api/v1/locale/vi" }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "flex items-center" },
-                                  [
-                                    _c("vi-flag", { staticClass: "w-6 h-4" }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      { staticClass: "text-sm pl-2" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Tiếng Việt\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          ])
+                          _c(
+                            "div",
+                            { staticClass: "mx-1" },
+                            [
+                              _c(
+                                "dropdown-link",
+                                {
+                                  attrs: { as: "a" },
+                                  nativeOn: {
+                                    click: function($event) {
+                                      return _vm.changeLocale("vi")
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "flex items-center" },
+                                    [
+                                      _c("vi-flag", { staticClass: "w-6 h-4" }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        { staticClass: "text-sm pl-2" },
+                                        [
+                                          _vm._v(
+                                            "\n                                            Tiếng Việt\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
                         ]
                       },
                       proxy: true
@@ -33790,13 +33872,13 @@ var render = function() {
                                       "p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out"
                                   },
                                   [
-                                    _vm.locale === "en"
+                                    _vm.$i18n.locale === "en"
                                       ? _c("en-flag", {
                                           staticClass: "w-6 h-4"
                                         })
                                       : _vm._e(),
                                     _vm._v(" "),
-                                    _vm.locale === "vi"
+                                    _vm.$i18n.locale === "vi"
                                       ? _c("vi-flag", {
                                           staticClass: "w-6 h-4"
                                         })
@@ -33842,7 +33924,14 @@ var render = function() {
                                   [
                                     _c(
                                       "dropdown-link",
-                                      { attrs: { href: "/locale/en" } },
+                                      {
+                                        attrs: { as: "a" },
+                                        nativeOn: {
+                                          click: function($event) {
+                                            return _vm.changeLocale("en")
+                                          }
+                                        }
+                                      },
                                       [
                                         _c(
                                           "div",
@@ -33876,7 +33965,14 @@ var render = function() {
                                   [
                                     _c(
                                       "dropdown-link",
-                                      { attrs: { href: "/locale/vi" } },
+                                      {
+                                        attrs: { as: "a" },
+                                        nativeOn: {
+                                          click: function($event) {
+                                            return _vm.changeLocale("vi")
+                                          }
+                                        }
+                                      },
                                       [
                                         _c(
                                           "div",
@@ -39582,7 +39678,7 @@ var render = function() {
                                   "a",
                                   {
                                     staticClass: "mx-auto text-center flex",
-                                    attrs: { href: "'/login'" }
+                                    attrs: { href: "/login" }
                                   },
                                   [
                                     _c("login-icon", {

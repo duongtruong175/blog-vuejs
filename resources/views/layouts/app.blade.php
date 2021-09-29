@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="api-base-url" content="{{ url('/') }}" />
+        <meta name="locale" content="{{ app()->getLocale() }}"/>
 
         <title>{{ $title ? $title : __('Blog') }}</title>
 
@@ -47,11 +48,7 @@
                                     <x-slot name="trigger">
                                         <button class="p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out">
                                             @php
-                                                if (session()->has('locale')) {
-                                                    $locale = session()->get('locale');
-                                                } else {
-                                                    $locale = 'en';
-                                                }
+                                                $locale = app()->getLocale();
                                             @endphp
                                             @if ($locale === 'en')
                                                 <x-en-flag class="w-6 h-4" />
@@ -68,7 +65,7 @@
                                     <!-- Dropdown -->
                                     <x-slot name="content">
                                         <div class="mx-1">
-                                            <x-dropdown-link :href="'/api/v1/locale/en'">
+                                            <x-dropdown-link :href="'/locale/en'">
                                                 <div class="flex items-center">
                                                     <x-en-flag class="w-6 h-4" />
                                                     <span class="text-sm pl-2">
@@ -78,7 +75,7 @@
                                             </x-dropdown-link>
                                         </div>
                                         <div class="mx-1">
-                                            <x-dropdown-link :href="'/api/v1/locale/vi'">
+                                            <x-dropdown-link :href="'/locale/vi'">
                                                 <div class="flex items-center">
                                                     <x-vi-flag class="w-6 h-4" />
                                                     <span class="text-sm pl-2">
@@ -162,11 +159,7 @@
                                 <x-slot name="trigger">
                                     <button class="p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out">
                                         @php
-                                            if (session()->has('locale')) {
-                                                $locale = session()->get('locale');
-                                            } else {
-                                                $locale = 'en';
-                                            }
+                                            $locale = app()->getLocale();
                                         @endphp
                                         @if ($locale === 'en')
                                             <x-en-flag class="w-6 h-4" />
@@ -183,7 +176,7 @@
                                 <!-- Dropdown -->
                                 <x-slot name="content">
                                     <div class="mx-1">
-                                        <x-dropdown-link :href="'/api/v1/locale/en'">
+                                        <x-dropdown-link :href="'/locale/en'">
                                             <div class="flex items-center">
                                                 <x-en-flag class="w-6 h-4" />
                                                 <span class="text-sm pl-2">
@@ -193,7 +186,7 @@
                                         </x-dropdown-link>
                                     </div>
                                     <div class="mx-1">
-                                        <x-dropdown-link :href="'/api/v1/locale/vi'">
+                                        <x-dropdown-link :href="'/locale/vi'">
                                             <div class="flex items-center">
                                                 <x-vi-flag class="w-6 h-4" />
                                                 <span class="text-sm pl-2">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,5 +70,23 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'message' => 'Logout succcess',
         ], 200);
+    }
+
+    /**
+     *
+     */
+    public function getUserAuth()
+    {
+        if (Auth::check()) {
+            $user = User::find(Auth::user())->first();
+            return response()->json([
+                'user' => $user->load(['roles'])
+            ], 200);
+        } else {
+            $user = (object)[];
+            return response()->json([
+                'user' => $user
+            ], 200);
+        }
     }
 }

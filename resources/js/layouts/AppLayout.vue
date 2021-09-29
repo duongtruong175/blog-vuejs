@@ -35,8 +35,8 @@
                                     <!-- Click to open dropdown -->
                                     <template v-slot:trigger>
                                         <button class="p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out">
-                                            <en-flag v-if="locale === 'en'" class="w-6 h-4"></en-flag>
-                                            <vi-flag v-if="locale === 'vi'" class="w-6 h-4"></vi-flag>
+                                            <en-flag v-if="$i18n.locale === 'en'" class="w-6 h-4"></en-flag>
+                                            <vi-flag v-if="$i18n.locale === 'vi'" class="w-6 h-4"></vi-flag>
                                             <div class="ml-1">
                                                 <svg class="fill-current h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -47,24 +47,24 @@
                                     <!-- Dropdown -->
                                     <template v-slot:content>
                                         <div class="mx-1">
-                                            <a href="/api/v1/locale/en" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                            <dropdown-link :as="'a'" @click.native="changeLocale('en')">
                                                 <div class="flex items-center">
                                                     <en-flag class="w-6 h-4"></en-flag>
                                                     <span class="text-sm pl-2">
                                                         English
                                                     </span>
                                                 </div>
-                                            </a>
+                                            </dropdown-link>
                                         </div>
                                         <div class="mx-1">
-                                            <a href="/api/v1/locale/vi" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                            <dropdown-link :as="'a'" @click.native="changeLocale('vi')">
                                                 <div class="flex items-center">
                                                     <vi-flag class="w-6 h-4"></vi-flag>
                                                     <span class="text-sm pl-2">
                                                         Tiếng Việt
                                                     </span>
                                                 </div>
-                                            </a>
+                                            </dropdown-link>
                                         </div>
                                     </template>
                                 </dropdown>
@@ -130,8 +130,8 @@
                             <!-- Click to open dropdown -->
                             <template v-slot:trigger>
                                 <button class="p-2 flex items-center hover:bg-gray-300 rounded transition duration-150 ease-in-out">
-                                    <en-flag v-if="locale === 'en'" class="w-6 h-4"></en-flag>
-                                    <vi-flag v-if="locale === 'vi'" class="w-6 h-4"></vi-flag>
+                                    <en-flag v-if="$i18n.locale === 'en'" class="w-6 h-4"></en-flag>
+                                    <vi-flag v-if="$i18n.locale === 'vi'" class="w-6 h-4"></vi-flag>
                                     <div class="ml-1">
                                         <svg class="fill-current h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -142,24 +142,24 @@
                             <!-- Dropdown -->
                             <template v-slot:content>
                                 <div class="mx-1">
-                                    <a href="/api/v1/locale/en" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                    <dropdown-link :as="'a'" @click.native="changeLocale('en')">
                                         <div class="flex items-center">
                                             <en-flag class="w-6 h-4"></en-flag>
                                             <span class="text-sm pl-2">
                                                 English
                                             </span>
                                         </div>
-                                    </a>
+                                    </dropdown-link>
                                 </div>
                                 <div class="mx-1">
-                                    <a href="/api/v1/locale/vi" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                    <dropdown-link :as="'a'" @click.native="changeLocale('vi')">
                                         <div class="flex items-center">
                                             <vi-flag class="w-6 h-4"></vi-flag>
                                             <span class="text-sm pl-2">
                                                 Tiếng Việt
                                             </span>
                                         </div>
-                                    </a>
+                                    </dropdown-link>
                                 </div>
                             </template>
                         </dropdown>
@@ -231,7 +231,6 @@ export default {
     },
     data() {
         return {
-            locale: this.$store.getters.getLocale,
             showingNavigationDropdown: false,
             user: this.$store.getters.getUserAuth,
         };
@@ -242,7 +241,7 @@ export default {
     },
     methods: {
         async logout() {
-            const url = "/logout";
+            const url = "logout";
             const res = await this.callApi("post", url);
             if (res.status === 200) {
                 this.user = {};
@@ -251,6 +250,17 @@ export default {
                 window.location.href = "/";
             } else {
                 alert("Logout error. Please try again !");
+            }
+        },
+        async changeLocale(locale) {
+            if (locale !== this.$i18n.locale) {
+                const url = "locale/" + locale;
+                const res = await this.callApi("get", url);
+                if (res.status === 200) {
+                    this.$i18n.locale = locale;
+                } else {
+                    alert("Change locale error. Please try again !");
+                }
             }
         },
     },
