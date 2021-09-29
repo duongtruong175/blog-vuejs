@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Frontend\ArticleController;
-use App\Http\Controllers\Frontend\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,14 +28,14 @@ Route::get('/articles/{slug?}', function () {
 // router api
 // Article
 Route::prefix('api/v1/articles')->group(function () {
-    Route::get('/', [ArticleController::class, 'index'])
+    Route::get('/', 'Frontend\ArticleController@index')
         ->name('articles.index');
-    Route::get('/{id}', [ArticleController::class, 'show'])
+    Route::get('/{id}', 'Frontend\ArticleController@show')
         ->name('articles.show');
 });
 
 Route::group(['middleware' => 'auth'], function () {
     // Comment
-    Route::post('api/v1/comments', [CommentController::class, 'store'])
+    Route::post('api/v1/comments', 'Frontend\CommentController@store')
         ->name('comment.store');
 });

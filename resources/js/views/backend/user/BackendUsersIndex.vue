@@ -40,6 +40,7 @@
                                     <th class="border px-2 py-2">{{ $t('Name') }}</th>
                                     <th class="border px-2 py-2">{{ $t('Email') }}</th>
                                     <th class="border px-2 py-2">{{ $t('Email verified at') }}</th>
+                                    <th class="border px-2 py-2">{{ $t('Roles') }}</th>
                                     <th class="border px-2 py-2">{{ $t('Created at') }}</th>
                                     <th class="border px-2 py-2">{{ $t('Updated at') }}</th>
                                     <th class="border px-2 py-2">{{ $t('Action') }}</th>
@@ -50,7 +51,8 @@
                                     <td class="border px-2 py-2">{{ user.id }}</td>
                                     <td class="border px-2 py-2">{{ user.name }}</td>
                                     <td class="border px-2 py-2">{{ user.email }}</td>
-                                    <td class="border px-2 py-2">{{ user.email_verified_at }}</td>
+                                    <td class="border px-2 py-2">{{ formatDateTime(user.email_verified_at) }}</td>
+                                    <td class="border px-2 py-2">{{ role(user) }}</td>
                                     <td class="border px-2 py-2">{{ formatDateTime(user.created_at) }}</td>
                                     <td class="border px-2 py-2">{{ formatDateTime(user.updated_at) }}</td>
                                     <td class="border px-2 py-2">
@@ -141,6 +143,13 @@ export default {
                     );
                 }
             }
+        },
+        role(user) {
+            return user.roles
+                .map(function (role) {
+                    return role.name;
+                })
+                .join(", ");
         },
     },
 };

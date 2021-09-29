@@ -3183,7 +3183,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       categories: [],
-      own_categories: [],
       article: {},
       form: {
         id: Number,
@@ -3217,7 +3216,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               if (res.status === 200) {
                 _this.categories = res.data.categories;
-                _this.own_categories = res.data.own_categories;
                 _this.article = res.data.article;
                 _this.isLoading = false; // init data form
 
@@ -3225,11 +3223,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.form.title = _this.article.title;
                 _this.form.content = _this.article.content;
 
-                _this.own_categories.forEach(function (category) {
+                _this.article.categories.forEach(function (category) {
                   _this.form.categories.push(category.id);
                 });
 
-                _this.form.tags = res.data.tags;
+                _this.form.tags = _this.article.tags.map(function (tag) {
+                  return tag.name;
+                }).join(",");
               } else {
                 alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
@@ -5358,56 +5358,104 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      roles: [],
       form: {
         name: "",
         email: "",
         password: "",
-        password_confirmation: ""
+        password_confirmation: "",
+        roles: []
       },
       errors: {},
       isFormLoading: false
     };
   },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var url, res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _this.isLoading = true;
+              url = "admin/users/create";
+              _context.next = 4;
+              return _this.callApi("get", url);
+
+            case 4:
+              res = _context.sent;
+
+              if (res.status === 200) {
+                _this.roles = res.data.roles;
+                _this.isLoading = false;
+              } else {
+                alert(_this.$i18n.t("Get data error. Please reload page !"));
+              }
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
   methods: {
     addUser: function addUser() {
-      var _this = this;
+      var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var url, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _this.errors = {};
-                _this.isFormLoading = true;
+                _this2.errors = {};
+                _this2.isFormLoading = true;
                 url = "admin/users";
-                _context.next = 5;
-                return _this.callApi("post", url, _this.form);
+                _context2.next = 5;
+                return _this2.callApi("post", url, _this2.form);
 
               case 5:
-                res = _context.sent;
+                res = _context2.sent;
 
                 if (res.status === 201) {
-                  _this.$router.push({
+                  _this2.$router.push({
                     name: "BackendUsersIndex"
                   });
                 } else if (res.status === 422) {
-                  _this.errors = res.data.errors;
+                  _this2.errors = res.data.errors;
                 } else {
-                  alert(_this.$i18n.t("Post data error. Please try again !"));
+                  alert(_this2.$i18n.t("Post data error. Please try again !"));
                 }
 
-                _this.isFormLoading = false;
+                _this2.isFormLoading = false;
 
               case 8:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     }
   }
@@ -5474,13 +5522,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       user: {},
+      roles: [],
       form: {
         id: Number,
-        name: ""
+        name: "",
+        roles: []
       },
       errors: {},
       isLoading: true,
@@ -5506,10 +5570,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               if (res.status === 200) {
                 _this.user = res.data.user;
+                _this.roles = res.data.roles;
                 _this.isLoading = false; // init data form
 
                 _this.form.id = _this.user.id;
                 _this.form.name = _this.user.name;
+
+                _this.user.roles.forEach(function (role) {
+                  _this.form.roles.push(role.id);
+                });
               } else {
                 alert(_this.$i18n.t("Get data error. Please reload page !"));
               }
@@ -5588,6 +5657,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -5766,6 +5837,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    role: function role(user) {
+      return user.roles.map(function (role) {
+        return role.name;
+      }).join(", ");
     }
   }
 });
@@ -6705,6 +6781,10 @@ var common = {
       return Math.floor(seconds) + " seconds ago";
     },
     formatDateTime: function formatDateTime(dateTime) {
+      if (!dateTime) {
+        return "";
+      }
+
       return new Date(dateTime).toLocaleString();
     }
   }
@@ -38230,6 +38310,103 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _c("fieldset", { staticClass: "mt-4" }, [
+              _c(
+                "legend",
+                {
+                  staticClass: "block font-medium text-sm text-gray-700",
+                  attrs: { for: "roles" }
+                },
+                [_vm._v(_vm._s(_vm.$t("Roles")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "mt-1 w-full overscroll-y-auto overflow-auto h-28"
+                },
+                _vm._l(_vm.roles, function(role) {
+                  return _c(
+                    "div",
+                    {
+                      key: role.id,
+                      staticClass: "flex items-center my-2 ml-2 text-sm"
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.roles,
+                            expression: "form.roles"
+                          }
+                        ],
+                        staticClass: "rounded",
+                        attrs: {
+                          type: "checkbox",
+                          id: "role_" + role.id,
+                          name: "roles"
+                        },
+                        domProps: {
+                          value: role.id,
+                          checked: Array.isArray(_vm.form.roles)
+                            ? _vm._i(_vm.form.roles, role.id) > -1
+                            : _vm.form.roles
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.form.roles,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = role.id,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(_vm.form, "roles", $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "roles",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.form, "roles", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "pl-2",
+                          attrs: { for: "role_" + role.id }
+                        },
+                        [_vm._v(_vm._s(role.name))]
+                      )
+                    ]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "text-xs text-red-900" },
+                _vm._l(_vm.errors.roles, function(error, index) {
+                  return _c("li", { key: index, staticClass: "py-1 px-2" }, [
+                    _vm._v(_vm._s(error))
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "mt-8 flex-row" },
@@ -38256,7 +38433,7 @@ var render = function() {
                   {
                     staticClass:
                       "ml-3 inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150",
-                    attrs: { to: { name: "BackendCategoriesIndex" } }
+                    attrs: { to: { name: "BackendUsersIndex" } }
                   },
                   [
                     _vm._v(
@@ -38430,6 +38607,111 @@ var render = function() {
                     "ul",
                     { staticClass: "text-xs text-red-900" },
                     _vm._l(_vm.errors.name, function(error, index) {
+                      return _c(
+                        "li",
+                        { key: index, staticClass: "py-1 px-2" },
+                        [_vm._v(_vm._s(error))]
+                      )
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                _c("fieldset", { staticClass: "mt-4" }, [
+                  _c(
+                    "legend",
+                    {
+                      staticClass: "block font-medium text-sm text-gray-700",
+                      attrs: { for: "roles" }
+                    },
+                    [_vm._v(_vm._s(_vm.$t("Roles")))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "mt-1 w-full overscroll-y-auto overflow-auto h-28"
+                    },
+                    _vm._l(_vm.roles, function(role) {
+                      return _c(
+                        "div",
+                        {
+                          key: role.id,
+                          staticClass: "flex items-center my-2 ml-2 text-sm"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.roles,
+                                expression: "form.roles"
+                              }
+                            ],
+                            staticClass: "rounded",
+                            attrs: {
+                              type: "checkbox",
+                              id: "role_" + role.id,
+                              name: "roles"
+                            },
+                            domProps: {
+                              value: role.id,
+                              checked: Array.isArray(_vm.form.roles)
+                                ? _vm._i(_vm.form.roles, role.id) > -1
+                                : _vm.form.roles
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.form.roles,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = role.id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.form,
+                                        "roles",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.form,
+                                        "roles",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.form, "roles", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "pl-2",
+                              attrs: { for: "role_" + role.id }
+                            },
+                            [_vm._v(_vm._s(role.name))]
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    { staticClass: "text-xs text-red-900" },
+                    _vm._l(_vm.errors.roles, function(error, index) {
                       return _c(
                         "li",
                         { key: index, staticClass: "py-1 px-2" },
@@ -38628,6 +38910,10 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("th", { staticClass: "border px-2 py-2" }, [
+                          _vm._v(_vm._s(_vm.$t("Roles")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "border px-2 py-2" }, [
                           _vm._v(_vm._s(_vm.$t("Created at")))
                         ]),
                         _vm._v(" "),
@@ -38659,7 +38945,15 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "border px-2 py-2" }, [
-                              _vm._v(_vm._s(user.email_verified_at))
+                              _vm._v(
+                                _vm._s(
+                                  _vm.formatDateTime(user.email_verified_at)
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "border px-2 py-2" }, [
+                              _vm._v(_vm._s(_vm.role(user)))
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "border px-2 py-2" }, [

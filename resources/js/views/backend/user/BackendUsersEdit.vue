@@ -25,6 +25,20 @@
                     </ul>
                 </div>
 
+                <!-- Roles -->
+                <fieldset class="mt-4">
+                    <legend for="roles" class="block font-medium text-sm text-gray-700">{{ $t('Roles') }}</legend>
+                    <div class="mt-1 w-full overscroll-y-auto overflow-auto h-28">
+                        <div v-for="role in roles" :key="role.id" class="flex items-center my-2 ml-2 text-sm">
+                            <input class="rounded" type="checkbox" :id="'role_' + role.id" name="roles" v-model="form.roles" :value="role.id" />
+                            <label class="pl-2" :for="'role_' + role.id">{{ role.name }}</label>
+                        </div>
+                    </div>
+                    <ul class="text-xs text-red-900">
+                        <li v-for="(error, index) in errors.roles" :key="index" class="py-1 px-2">{{ error }}</li>
+                    </ul>
+                </fieldset>
+
                 <div class="mt-8 flex-row">
                     <button :class="{ 'opacity-25': isFormLoading }" :disabled="isFormLoading" class="ml-3 inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150" type="submit">
                         {{ $t('Update') }}
@@ -43,9 +57,11 @@ export default {
     data() {
         return {
             user: {},
+            roles: [],
             form: {
                 id: Number,
                 name: "",
+                roles: [],
             },
             errors: {},
             isLoading: true,
@@ -58,10 +74,14 @@ export default {
         const res = await this.callApi("get", url);
         if (res.status === 200) {
             this.user = res.data.user;
+            this.roles = res.data.roles;
             this.isLoading = false;
             // init data form
             this.form.id = this.user.id;
             this.form.name = this.user.name;
+            this.user.roles.forEach((role) => {
+                this.form.roles.push(role.id);
+            });
         } else {
             alert(this.$i18n.t("Get data error. Please reload page !"));
         }

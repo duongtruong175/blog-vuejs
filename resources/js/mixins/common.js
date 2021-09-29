@@ -42,6 +42,9 @@ const common = {
             return Math.floor(seconds) + " seconds ago";
         },
         formatDateTime(dateTime) {
+            if (!dateTime) {
+                return "";
+            }
             return new Date(dateTime).toLocaleString();
         }
     }

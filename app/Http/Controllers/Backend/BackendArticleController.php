@@ -36,7 +36,7 @@ class BackendArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::all();
         $viewdata = [
             'categories' => $categories
         ];
@@ -102,24 +102,12 @@ class BackendArticleController extends Controller
         // only admin create article so can edit it
 
         // get data and redict to edit form if have permission
-        $article = Article::findOrFail($id);
-        $own_categories = Category::join('article_category', 'categories.id', '=', 'article_category.category_id')
-            ->join('articles', 'articles.id', '=', 'article_category.article_id')
-            ->select('categories.*')
-            ->where([
-                ['articles.id', $id]
-            ])
-            ->get();
-        $categories = Category::orderBy('name', 'asc')->get();
-        $tags = $article->tags()->get()->map(function ($tag) {
-            return $tag->name;
-        })->implode(',');
+        $article = Article::with(['categories', 'tags'])->findOrFail($id);
+        $categories = Category::all();
 
         $viewdata = [
             'article' => $article,
-            'own_categories' => $own_categories,
             'categories' => $categories,
-            'tags' => $tags
         ];
 
         return response()->json($viewdata);

@@ -84,7 +84,6 @@ export default {
     data() {
         return {
             categories: [],
-            own_categories: [],
             article: {},
             form: {
                 id: Number,
@@ -105,17 +104,20 @@ export default {
         const res = await this.callApi("get", url);
         if (res.status === 200) {
             this.categories = res.data.categories;
-            this.own_categories = res.data.own_categories;
             this.article = res.data.article;
             this.isLoading = false;
             // init data form
             this.form.id = this.article.id;
             this.form.title = this.article.title;
             this.form.content = this.article.content;
-            this.own_categories.forEach((category) => {
+            this.article.categories.forEach((category) => {
                 this.form.categories.push(category.id);
             });
-            this.form.tags = res.data.tags;
+            this.form.tags = this.article.tags
+                .map(function (tag) {
+                    return tag.name;
+                })
+                .join(",");
         } else {
             alert(this.$i18n.t("Get data error. Please reload page !"));
         }
